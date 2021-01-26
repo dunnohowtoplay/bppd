@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" alt="" width="50" height="50" class="d-inline-block align-center">
+                PAD KABUPATEN KUNINGAN
+            </a>
+            <div class="d-flex">
+                <div class="btn-group">
+                    <button type="button" class="disabled btn btn-sm btn-outline-primary">User_1</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+                      <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuReference">
+                      <li><a class="dropdown-item" href="#">Log Out</a></li>
+                      <li><a class="dropdown-item" href="#">Another action</a></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="card">
+            <nav>
+                <div class="container-fluid">
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-link " id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab"
+                            aria-controls="nav-home" aria-selected="true">Home</a>
+                        <a class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-daftar" role="tab"
+                            aria-controls="nav-profile" aria-selected="false">Pendaftar</a>
+                        <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-data" role="tab"
+                            aria-controls="nav-contact" aria-selected="false">Pendataan</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <!-- Home -->
+                <div class="tab-pane fade text-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="card-body">
+                        <h2 class="card-title">PEMERINTAH KAB. KUNINGAN</h2>
+                        <h5 class="card-text">BADAN PENGELOLAAN PENDAPATAN DAERAH</h5>
+                        <img src="logo.png" alt="" width="250" height="300" >
+                        <br>
+                        <br>
+                        <h2>Module PAD</h2>
+                        <p>Module PAD merupakan bagian dari module Aplikasi OpenSIPKD</p>
+                        <p>Module ini digunakan untuk mengelola data Pendapatan Asli Daerah</p>
+                        <p>SELAMAT BEKERJA</p>
+                    </div>
+                </div>
+                <!-- End of Home -->
+
+                <!-- Pendaftaran -->
+                <div class="tab-pane fade show active" id="nav-daftar" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="container-fluid">
+                        <h4 class="text-muted" style="padding-top: 10px;">Pendaftaran - Wajib Pajak</h4>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-secondary" for="btncheck1">Tambah</label>
+                              
+                                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-secondary" for="btncheck2">Edit</label>
+                              
+                                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-secondary" for="btncheck3">Hapus</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">No.Pelayanan</th>
+                                        <th scope="col">Nama WP</th>
+                                        <th scope="col">Desa - Kecamatan</th>
+                                        <th scope="col">Mutasi</th>
+                                        <th scope="col">Jumlah</th>
+                                        <th scope="col">KET.</th>
+                                        <th scope="col">Tanggal Penyelesaian</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>01/12/2020</td>
+                                        <td>20200011007</td>
+                                        <td>Aisah Dkk</td>
+                                        <td>Ancaran - Kuningan</td>
+                                        <td>Mutasi pecah sisa 2 OP</td>
+                                        <td>2</td>
+                                        <td>SELESAI</td>
+                                        <td>12/07/2020</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2</th>
+                                        <td>01/12/2020</td>
+                                        <td>20200011008</td>
+                                        <td>Puri Dkk</td>
+                                        <td>Gandasoli - Karamatmulya</td>
+                                        <td>Penghapusan 13 OP</td>
+                                        <td>13</td>
+                                        <td>SELESAI</td>
+                                        <td>12/07/2020</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">3</th>
+                                        <td>01/12/2020</td>
+                                        <td>20200011009</td>
+                                        <td>Rina Dkk</td>
+                                        <td>Cinagara - Lebakwangi</td>
+                                        <td>Mutasi pecah sisa 3 OP, Mutasi habis 3 OP</td>
+                                        <td>6</td>
+                                        <td>SELESAI</td>
+                                        <td>12/14/2020</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">4</th>
+                                        <td>01/12/2020</td>
+                                        <td>20200011010</td>
+                                        <td>Siti Nurjanah Dkk</td>
+                                        <td>Sukamaju - Cibingbin</td>
+                                        <td>Mutasi habis 3 OP</td>
+                                        <td>3</td>
+                                        <td>SELESAI</td>
+                                        <td>12/14/2020</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">5</th>
+                                        <td>01/12/2020</td>
+                                        <td>20200011011</td>
+                                        <td>Yeti Ruhyati dkk</td>
+                                        <td>Mandirancan - Mandirancan</td>
+                                        <td>Mutasi habis 5 OP, Pecah habis 6 OP</td>
+                                        <td>11</td>
+                                        <td>SELESAI</td>
+                                        <td>12/7/2020</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                        <hr>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+                <!-- End of Pendaftaran-->
+                
+                <!-- Pendataan -->
+                <div class="tab-pane fade" id="nav-data" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div class="container-fluid">
+                        <h4 class="text-muted" style="padding-top: 10px;">Pendataan- Wajib Pajak</h4>
+                        <div>
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-secondary" for="btncheck1">Tambah</label>
+                              
+                                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-secondary" for="btncheck2">Edit</label>
+                              
+                                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                <label class="btn btn-sm btn-outline-secondary" for="btncheck3">Hapus</label>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Nama WP</th>
+                                        <th scope="col">SPPT Lama</th>
+                                        <th scope="col">Nama Wajib Pajak Lama</th>
+                                        <th scope="col">Tarif PBB baru</th>
+                                        <th scope="col">SPPT Baru</th>
+                                        <th scope="col">Nama Wajib Pajak Baru</th>
+                                        <th scope="col">Tarif PBB Baru</th>
+                                        <th scope="col">Keterangan</th>
+                                        <th scope="col">Transaksi</th>
+                                        <th scope="col">Luas Tanah</th>
+                                        <th scope="col">Luas Bangunan</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr>
+                                        <th scope="row">1</th>
+                                        <td>01/12/2020</td>
+                                        <td>Hidayat Dkk</td>
+                                        <td>321014001400100020</td>
+                                        <td>Midkal</td>
+                                        <td>16500</td>
+                                        <td>321014001400100020</td>
+                                        <td>Hidayat</td>
+                                        <td>16500</td>
+                                        <td>TETAP</td>
+                                        <td>JB</td>
+                                        <td>75</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">2</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td>321014001400600460</td>
+                                        <td>Saodah</td>
+                                        <td>16500</td>
+                                        <td>321014001400600460</td>
+                                        <td>Nurasa</td>
+                                        <td>41890</td>
+                                        <td>NAIK</td>
+                                        <td>JB</td>
+                                        <td>182</td>
+                                        <td>54</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">3</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>321014001400601220</td>
+                                        <td>Kurdian</td>
+                                        <td>49403</td>
+                                        <td>BARU</td>
+                                        <td>JB</td>
+                                        <td>132</td>
+                                        <td>54</td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">4</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td>321014001401101040</td>
+                                        <td>Oman</td>
+                                        <td>28720</td>
+                                        <td>321014001401101040</td>
+                                        <td>Oman</td>
+                                        <td>16500</td>
+                                        <td>TURUN</td>
+                                        <td>JB</td>
+                                        <td>440</td>
+                                        <td></td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">5</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>321014001401102130</td>
+                                        <td>Inah Sarinah</td>
+                                        <td>16500</td>
+                                        <td>TETAP</td>
+                                        <td>JB</td>
+                                        <td>527</td>
+                                        <td></td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">6</th>
+                                        <td></td>
+                                        <td>Dian Prisila Dkk</td>
+                                        <td>321015000500900360</td>
+                                        <td>Soerah</td>
+                                        <td>16500</td>
+                                        <td>32101500500900360</td>
+                                        <td>Soerah</td>
+                                        <td>16500</td>
+                                        <td>TETAP</td>
+                                        <td></td>
+                                        <td>181</td>
+                                        <td></td>
+                                      </tr>
+                                      <tr>
+                                        <th scope="row">7</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>321015000500900870</td>
+                                        <td>Soerah</td>
+                                        <td>17054</td>
+                                        <td>BARU</td>
+                                        <td>JB</td>
+                                        <td>323</td>
+                                        <td></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                        <hr>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-end">
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                </a>
+                              </li>
+                              <li class="page-item"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </nav>
+                    </div>
+                </div>
+                <!-- End of Pendataan -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
