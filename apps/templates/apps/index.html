@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -17,7 +18,7 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="logo.png" alt="" width="50" height="50" class="d-inline-block align-center">
+                <img src="{% static 'media/logo.png' %}" alt="" width="50" height="50" class="d-inline-block align-center">
                 KABUPATEN KUNINGAN
             </a>
             <div class="d-flex">
@@ -55,7 +56,7 @@
                 <!-- Home -->
                 <div class="tab-pane fade show active text-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="card-body">
-                      <img src="logo.png" alt="" width="250" height="300" >
+                      <img src="{% static 'media/logo.png' %}" alt="" width="250" height="300" >
                       <br>
                       <br>
                       <h2 class="card-title">KABUPATEN KUNINGAN</h2>
