@@ -3,3 +3,4 @@ from .models import *
 # Register your models here.
 admin.site.register(Kecamatan)
 admin.site.register(Desa)
+admin.site.register(Pendaftaran)
