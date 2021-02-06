@@ -113,6 +113,21 @@
                                     </tr>
                                   </thead>
                                   <tbody>
+                                    {% for data in datas %}
+                                    <tr>
+                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                                      <th scope="row">{{ forloop.counter }}</th>
+                                      <td>{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
+                                      <td>{{data.no_pelayanan}}</td>
+                                      <td>{{data.nama}}</td>
+                                      <td>{{data.desa}} - {{data.kecamatan}}</td>
+                                      <td>{{data.mutasi}}</td>
+                                      <td>{{data.jumlah}}</td>
+                                      <td>{{data.keterangan}}</td>
+                                      <td>{{data.tanggal_selesai|date:'d-m-Y'}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!--
                                     <tr>
                                       <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
                                       <th scope="row">1</th>
@@ -173,6 +188,7 @@
                                       <td>SELESAI</td>
                                       <td>12/7/2020</td>
                                     </tr>
+                                    -->
                                   </tbody>
                                 </table>
                           </div>
@@ -222,71 +238,76 @@
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                              <form>
+                              <form method="POST">
+                                {% csrf_token %}
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Tanggal Pendaftar</label>
                                   <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" id="inputTanggalPendaftaran">
+                                    <input class="form-control" type="date" value="" id="inputTanggalPendaftaran" name="tanggal_pendaftaran">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">No. Pelayanan</label>
                                   <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="inputNoPelayanan">
+                                    <input type="text" class="form-control" id="inputNoPelayanan" name="no_pelayanan" disabled>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Nama WP</label>
                                   <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="inputNamaWP">
+                                    <input type="text" class="form-control" id="inputNamaWP" name="nama">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Kecamatan</label>
                                   <div class="col-sm-3">
-                                    <select id="inputState" class="form-select">
-                                      <option selected disabled>Pilih Kecamatan ...</option>
-                                      <option>Kecamatan1</option>
-                                      <option>Kecamatan2</option>
-                                      <option>Kecamatan3</option>
-                                    </select>
+                                    <input type="text" list="listkecamatan" placeholder="Masukan Kecamatan..." class="form-control" name="kecamatan">
+                                    <datalist id="listkecamatan">
+                                      {% for kecamatan in kecamatans %}
+                                        <option value="{{ kecamatan.nama}}"></option>
+                                      {% endfor %}
+                                    </datalist>
                                   </div>
                                   <label class="col-sm-2 col-form-label">Desa</label>
                                   <div class="col-sm-3">
-                                    <select id="inputState" class="form-select">
-                                      <option selected disabled>Pilih Desa ...</option>
-                                      <option>Desa1</option>
-                                      <option>Desa2</option>
-                                      <option>Desa3</option>
-                                    </select>
+                                    <input type="text" list="listdesa" placeholder="Masukan Desa..." class="form-control" name="desa">
+                                    <datalist id="listdesa">
+                                      {% for desa in desas %}
+                                        <option value="{{ desa.nama }}"></option>
+                                      {% endfor %}
+                                    </datalist>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Mutasi</label>
                                   <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="inputMutasi">
+                                    <input type="text" class="form-control" id="inputMutasi" name="mutasi">
                                   </div>
                                   <label class="col-sm-2 col-form-label">Jumlah</label>
                                   <div class="col-sm-1">
-                                    <input type="text" class="form-control" id="inputJumlah">
+                                    <input type="text" class="form-control" id="inputJumlah" name="jumlah">
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Keterangan</label>
                                   <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="inputKeterangan">
+                                    <select id="inputKeterangan" class="form-select"name="keterangan">
+                                      <option selected disabled>Pilih Keterangan...</option>
+                                      <option>PROSES</option>
+                                      <option>SELESAI</option>
+                                    </select>
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
                                   <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai">
+                                    <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai" name="tanggal_selesai">
                                   </div>
                                 </div>
                                 <div class="modal-footer">
                                   <button type="reset" class="btn btn-secondary">Clear</button>
                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                  <button type="button" class="btn btn-primary">Tambah</button>
+                                  <button type="submit" class="btn btn-primary">Tambah</button>
                                 </div>
                               </form>
                             </div>
