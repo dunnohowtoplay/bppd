@@ -48,8 +48,6 @@ else:
         secint = int(Pendaftaran.objects.latest('id').no_pelayanan[4:8])
 
 
-
-
 def editPK(sender, instance, **kwargs):
     global thdint
     if len(Pendaftaran.objects.all()) < 1:
