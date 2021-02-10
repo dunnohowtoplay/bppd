@@ -1,4 +1,6 @@
 {% load static %}
+{% load crispy_forms_tags %}
+
 <!doctype html>
 <html lang="en">
 
@@ -8,9 +10,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!--autocomplete-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <!--Tempius date picker-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+    {{ form.media }}
+
+    <!--CSS-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Hello, world!</title>
 </head>
 
@@ -127,68 +142,6 @@
                                       <td>{{data.tanggal_selesai|date:'d-m-Y'}}</td>
                                     </tr>
                                     {% endfor %}
-                                    <!--
-                                    <tr>
-                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                                      <th scope="row">1</th>
-                                      <td>01/12/2020</td>
-                                      <td>20200011007</td>
-                                      <td>Aisah Dkk</td>
-                                      <td>Ancaran - Kuningan</td>
-                                      <td>Mutasi pecah sisa 2 OP</td>
-                                      <td>2</td>
-                                      <td>SELESAI</td>
-                                      <td>12/07/2020</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                                      <th scope="row">2</th>
-                                      <td>01/12/2020</td>
-                                      <td>20200011008</td>
-                                      <td>Puri Dkk</td>
-                                      <td>Gandasoli - Karamatmulya</td>
-                                      <td>Penghapusan 13 OP</td>
-                                      <td>13</td>
-                                      <td>SELESAI</td>
-                                      <td>12/07/2020</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                                      <th scope="row">3</th>
-                                      <td>01/12/2020</td>
-                                      <td>20200011009</td>
-                                      <td>Rina Dkk</td>
-                                      <td>Cinagara - Lebakwangi</td>
-                                      <td>Mutasi pecah sisa 3 OP, Mutasi habis 3 OP</td>
-                                      <td>6</td>
-                                      <td>SELESAI</td>
-                                      <td>12/14/2020</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                                      <th scope="row">4</th>
-                                      <td>01/12/2020</td>
-                                      <td>20200011010</td>
-                                      <td>Siti Nurjanah Dkk</td>
-                                      <td>Sukamaju - Cibingbin</td>
-                                      <td>Mutasi habis 3 OP</td>
-                                      <td>3</td>
-                                      <td>SELESAI</td>
-                                      <td>12/14/2020</td>
-                                    </tr>
-                                    <tr>
-                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                                      <th scope="row">5</th>
-                                      <td>01/12/2020</td>
-                                      <td>20200011011</td>
-                                      <td>Yeti Ruhyati dkk</td>
-                                      <td>Mandirancan - Mandirancan</td>
-                                      <td>Mutasi habis 5 OP, Pecah habis 6 OP</td>
-                                      <td>11</td>
-                                      <td>SELESAI</td>
-                                      <td>12/7/2020</td>
-                                    </tr>
-                                    -->
                                   </tbody>
                                 </table>
                           </div>
@@ -230,78 +183,68 @@
                         </div>
                       </div>
                       <!-- Modal Tambah-->
-                      <div class="modal fade" id="tambahPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                      <div class="modal fade" id="tambahPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl ">
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendaftaran</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                              <form method="POST">
+                            <div class="modal-body ui-front">
+                              <form method="POST" action="" id="pendaftaran_form">
                                 {% csrf_token %}
                                 <div class="row mb-3">
-                                  <label class="col-sm-2 col-form-label">Tanggal Pendaftar</label>
+                                  <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
                                   <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" id="inputTanggalPendaftaran" name="tanggal_pendaftaran">
+                                    {{ form.tanggal_pendaftaran }}
                                   </div>
                                 </div>
+                                <!--
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">No. Pelayanan</label>
                                   <div class="col-sm-3">
                                     <input type="text" class="form-control" id="inputNoPelayanan" name="no_pelayanan" disabled>
                                   </div>
                                 </div>
+                                -->
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Nama WP</label>
                                   <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="inputNamaWP" name="nama">
+                                    {{ form.nama }}
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Kecamatan</label>
                                   <div class="col-sm-3">
-                                    <input type="text" list="listkecamatan" placeholder="Masukan Kecamatan..." class="form-control" name="kecamatan">
-                                    <datalist id="listkecamatan">
-                                      {% for kecamatan in kecamatans %}
-                                        <option value="{{ kecamatan.nama}}"></option>
-                                      {% endfor %}
-                                    </datalist>
+                                    {{ form.kecamatan }}
                                   </div>
+                                </div>
+                                <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Desa</label>
                                   <div class="col-sm-3">
-                                    <input type="text" list="listdesa" placeholder="Masukan Desa..." class="form-control" name="desa">
-                                    <datalist id="listdesa">
-                                      {% for desa in desas %}
-                                        <option value="{{ desa.nama }}"></option>
-                                      {% endfor %}
-                                    </datalist>
+                                    {{ form.desa }}
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Mutasi</label>
                                   <div class="col-sm-3">
-                                    <input type="text" class="form-control" id="inputMutasi" name="mutasi">
+                                    {{ form.mutasi }}
                                   </div>
                                   <label class="col-sm-2 col-form-label">Jumlah</label>
                                   <div class="col-sm-1">
-                                    <input type="text" class="form-control" id="inputJumlah" name="jumlah">
+                                    {{ form.jumlah }}
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Keterangan</label>
                                   <div class="col-sm-3">
-                                    <select id="inputKeterangan" class="form-select"name="keterangan">
-                                      <option selected disabled>Pilih Keterangan...</option>
-                                      <option>PROSES</option>
-                                      <option>SELESAI</option>
-                                    </select>
+                                    {{ form.keterangan }}
                                   </div>
                                 </div>
                                 <div class="row mb-3">
                                   <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
                                   <div class="col-sm-3">
-                                    <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai" name="tanggal_selesai">
+                                    {{ form.tanggal_selesai }}
                                   </div>
                                 </div>
                                 <div class="modal-footer">
@@ -674,6 +617,25 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
     -->
+    <!--static javascript-->
+    <script src="{% static 'js/main.js' %}"></script>
+    <!--
+    <script>
+      $(function() {
+        $( "#pilihdesa" ).autocomplete({
+          source: '{% url 'index' %}'
+        });
+      });
+      $( function() {
+        var availableTags = [
+          "Ciawigebang","Cibeureum ","Cibingbin","Cidahu","Cigangamekar","Cigugur","Cilebak","Cilimus","Cimahi","Ciniru","Cipicung","Ciwaru","Darma","Garawangi","Hantara","Jalaksana", "Japara","Kadugede","Kalimanggis","Karangkancana","Kramatmulya","Kuningan","Lebakwangi","Luragung","Maleber","Mandirancan","Nusaherang","Pancalang","Pasawahan","Selajambe","Sindangagung","Subang"
+        ];
+        $( "#pilihkecamatan" ).autocomplete({
+          source: availableTags
+        });
+      } );
+      </script>
+      -->
 </body>
 
 </html>

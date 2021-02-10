@@ -37,7 +37,9 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'apps',
-
+    'dal',
+    'dal_select2',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,7 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     "bootstrap5",
+    'bootstrap4',
+    'crispy_forms',
+    'tempus_dominus',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
