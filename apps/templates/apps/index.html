@@ -14,11 +14,6 @@
 
     <!--Jquery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!--autocomplete-->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     
     <!--Tempius date picker-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
@@ -89,8 +84,8 @@
                         <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahPendaftaran">
                           Tambah
                         </button>
-                        <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-                        <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" id="editpendaftaran">Edit</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm" id="deletependaftaran">Delete</button>
                         <div class="btn-group">
                           <button type="button" class="disabled btn btn-sm btn-outline-primary">Export</button>
                           <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
@@ -128,9 +123,10 @@
                                     </tr>
                                   </thead>
                                   <tbody>
+                                    {% csrf_token %}
                                     {% for data in datas %}
-                                    <tr>
-                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                                    <tr id="{{data.id}}">
+                                      <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.id}}" aria-label="..."></td>
                                       <th scope="row">{{ forloop.counter }}</th>
                                       <td>{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
                                       <td>{{data.no_pelayanan}}</td>
@@ -257,6 +253,80 @@
                           </div>
                         </div>
                       </div>
+                      <!-- Modal edit-->
+                      <!--
+                      <div class="modal fade" id="editPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-xl ">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="staticBackdropLabel">Edit Data Pendaftaran</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body ui-front">
+                              <form method="POST" action="" id="pendaftaran_form">
+                                {% csrf_token %}
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
+                                  <div class="col-sm-3">
+                                    {{ form.tanggal_pendaftaran }}
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">No. Pelayanan</label>
+                                  <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="inputNoPelayanan" name="no_pelayanan" disabled>
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Nama WP</label>
+                                  <div class="col-sm-3">
+                                    {{ form.nama }}
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Kecamatan</label>
+                                  <div class="col-sm-3">
+                                    {{ form.kecamatan }}
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Desa</label>
+                                  <div class="col-sm-3">
+                                    {{ form.desa }}
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Mutasi</label>
+                                  <div class="col-sm-3">
+                                    {{ form.mutasi }}
+                                  </div>
+                                  <label class="col-sm-2 col-form-label">Jumlah</label>
+                                  <div class="col-sm-1">
+                                    {{ form.jumlah }}
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Keterangan</label>
+                                  <div class="col-sm-3">
+                                    {{ form.keterangan }}
+                                  </div>
+                                </div>
+                                <div class="row mb-3">
+                                  <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
+                                  <div class="col-sm-3">
+                                    {{ form.tanggal_selesai }}
+                                  </div>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                  <button type="submit" class="btn btn-primary">Edit</button>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      -->
                     </div>
                 </div>
                 <!-- End of Pendaftaran-->
@@ -619,23 +689,70 @@
     -->
     <!--static javascript-->
     <script src="{% static 'js/main.js' %}"></script>
-    <!--
+    
     <script>
-      $(function() {
-        $( "#pilihdesa" ).autocomplete({
-          source: '{% url 'index' %}'
-        });
-      });
-      $( function() {
-        var availableTags = [
-          "Ciawigebang","Cibeureum ","Cibingbin","Cidahu","Cigangamekar","Cigugur","Cilebak","Cilimus","Cimahi","Ciniru","Cipicung","Ciwaru","Darma","Garawangi","Hantara","Jalaksana", "Japara","Kadugede","Kalimanggis","Karangkancana","Kramatmulya","Kuningan","Lebakwangi","Luragung","Maleber","Mandirancan","Nusaherang","Pancalang","Pasawahan","Selajambe","Sindangagung","Subang"
-        ];
-        $( "#pilihkecamatan" ).autocomplete({
-          source: availableTags
-        });
-      } );
-      </script>
-      -->
+        $(document).ready(function(){
+          $('#deletependaftaran').click(function(){
+            if(confirm("Are you sure you want to delete this data?")){
+              var deleteid = [];
+              var csrf=$('input[name=csrfmiddlewaretoken]').val();
+              $(':checkbox:checked').each(function(i){
+                deleteid[i]=$(this).val()
+              })
+              if(deleteid.length===0){
+                alert("Please select item to delete")
+              }else{
+                console.log(deleteid)
+                $.ajax({
+                  url:".",
+                  method:"POST",
+                  data:{
+                    deleteid,
+                    csrfmiddlewaretoken:csrf
+                  },
+                  success:function(response){
+                    for(var i=0; i < deleteid.length; i++){
+                      $('tr#'+deleteid[i]+'').fadeOut('slow');
+                    }
+                  }
+                })
+              }
+            }
+          })
+        })
+
+        $(document).ready(function(){
+          $('#editpendaftaran').click(function(){
+            if(confirm("Are you sure you want to edit this data?")){
+              var editidarr = [];
+              var editid
+              var csrf=$('input[name=csrfmiddlewaretoken]').val();
+              $(':checkbox:checked').each(function(i){
+                editidarr[i]=$(this).val()
+              })
+              if(editidarr.length===0){
+                alert("Please select data to edit")
+              }else if(editidarr.length===1){
+                editid = editidarr[0]
+                console.log(editid)
+                $.ajax({
+                  url:".",
+                  method:"POST",
+                  data:{
+                    editid,
+                    csrfmiddlewaretoken:csrf
+                  }
+                })
+                $('#editPendaftaran').modal('show');
+              }else{
+                alert("Please select one data to edit")
+              }
+            }
+          })
+        })
+    </script>
+    
 </body>
 
 </html>
+
