@@ -1,0 +1,20 @@
+{% load static %}
+<div class="modal-header">
+    <h5 class="modal-title">Delete Pendaftaran</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body ui-front">
+    <form method="POST" data-url="{% url 'apps:daftar-delete'%}" class="delete-daftar-form">
+        {% csrf_token %}
+            <div class="modal-body">
+            <p class="lead"> Are you sure you want to delete this datas? </p>
+                {% for data_id in data_ids %}
+                <strong>{{data_id.no_pelayanan}}</strong>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-danger">Delete Data</button>
+            </div>
+    </form>
+</div>

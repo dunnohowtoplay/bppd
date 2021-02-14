@@ -1,0 +1,73 @@
+{% load static %}
+{% block head %}
+{% endblock head %}
+
+<!-- Modal Tambah-->
+<div class="modal-header">
+    <h5 class="modal-title">Tambah Pendaftaran</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body ui-front">
+    <form method="POST" data-url="{% url 'apps:daftar_create' %}" class="create-daftar-form">
+        {% csrf_token %}
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
+                <div class="col-sm-3">
+                    {{ form.tanggal_pendaftaran }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Nama WP</label>
+                <div class="col-sm-3">
+                    {{ form.nama }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Kecamatan</label>
+                <div class="col-sm-3 class-kecamatan">
+                    {{ form.kecamatan }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Desa</label>
+                <div class="col-sm-3 class-desa">
+                    {{ form.desa }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Mutasi</label>
+                <div class="col-sm-3">
+                    {{ form.mutasi }}
+                </div>
+                <label class="col-sm-2 col-form-label">Jumlah</label>
+                <div class="col-sm-1">
+                    {{ form.jumlah }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Keterangan</label>
+                <div class="col-sm-3">
+                    {{ form.keterangan }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
+                <div class="col-sm-3">
+                    {{ form.tanggal_selesai }}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary">Clear</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+            
+    </form>
+</div>
+
+{% block javascript %}
+<script>
+    $("#pilihdesa").select2({dropdownParent: $(".class-desa")});
+    $("#pilihkecamatan").select2({dropdownParent: $(".class-kecamatan")});
+</script>
+{% endblock javascript %}

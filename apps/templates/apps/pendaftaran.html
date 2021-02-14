@@ -1,11 +1,11 @@
 {% extends "apps/base.html" %}
-
+{% load static %}
 {% block nav %}
 <a class="nav-link" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
     aria-controls="nav-home" aria-selected="false">Home</a>
 <a class="nav-link active" id="nav-profile-tab"  href="{% url 'apps:pendaftaran' %}" role="tab"
     aria-controls="nav-profile" aria-selected="true">Pendaftaran</a>
-<a class="nav-link" id="nav-contact-tab"  href="{% url 'apps:home' %}" role="tab"
+<a class="nav-link" id="nav-contact-tab"  href="{% url 'apps:pendataan' %}" role="tab"
     aria-controls="nav-contact" aria-selected="false">Pendataan</a>
 {% endblock nav %}
 
@@ -16,11 +16,10 @@
         <h4 class="text-muted" style="padding-top: 10px;">Pendaftaran - Wajib Pajak</h4>
         <div>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahPendaftaran">
-            Tambah
-          </button>
-          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" id="editpendaftaran">Edit</button>
-          <button type="submit" class="btn btn-outline-danger btn-sm" id="deletependaftaran">Delete</button>
+          <button type="button" class="btn btn-outline-primary btn-sm show-form" data-url="{% url 'apps:daftar_create' %}">Tambah</button>
+          <button type="button" class="btn btn-outline-primary btn-sm show-form-update" data-url="{% url 'apps:daftar-update' %}">Edit</button>
+          <button type="submit" class="btn btn-outline-danger btn-sm show-form-delete" data-url="{% url 'apps:daftar-delete' %}" id="deletependaftaran">Delete</button>
+          
           <div class="btn-group">
             <button type="button" class="disabled btn btn-sm btn-outline-primary">Export</button>
             <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
@@ -42,7 +41,7 @@
         <hr>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <table class="table table-striped">
+                <table class="table table-striped" id="daftar-table">
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -59,20 +58,7 @@
                     </thead>
                     <tbody>
                       {% csrf_token %}
-                      {% for data in datas %}
-                      <tr id="{{data.id}}">
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.id}}" aria-label="..."></td>
-                        <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
-                        <td>{{data.no_pelayanan}}</td>
-                        <td>{{data.nama}}</td>
-                        <td>{{data.desa}} - {{data.kecamatan}}</td>
-                        <td>{{data.mutasi}}</td>
-                        <td>{{data.jumlah}}</td>
-                        <td>{{data.keterangan}}</td>
-                        <td>{{data.tanggal_selesai|date:'d-m-Y'}}</td>
-                      </tr>
-                      {% endfor %}
+                      {% include "apps/daftar_list.html" %}
                     </tbody>
                   </table>
             </div>
@@ -114,159 +100,19 @@
           </div>
         </div>
         <!-- Modal Tambah-->
-        <div class="modal fade" id="tambahPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="crud-modal" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog modal-xl ">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendaftaran</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body ui-front">
-                <form method="POST" action="" id="pendaftaran_form">
-                {% csrf_token %} 
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
-                    <div class="col-sm-3">
-                      {{ form.tanggal_pendaftaran }}
-                    </div>
-                  </div>
-                  <!--
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">No. Pelayanan</label>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control" id="inputNoPelayanan" name="no_pelayanan" disabled>
-                    </div>
-                  </div>
-                  -->
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Nama WP</label>
-                    <div class="col-sm-3">
-                      {{ form.nama }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Kecamatan</label>
-                    <div class="col-sm-3">
-                      {{ form.kecamatan }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Desa</label>
-                    <div class="col-sm-3">
-                      {{ form.desa }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Mutasi</label>
-                    <div class="col-sm-3">
-                      {{ form.mutasi }}
-                    </div>
-                    <label class="col-sm-2 col-form-label">Jumlah</label>
-                    <div class="col-sm-1">
-                      {{ form.jumlah }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Keterangan</label>
-                    <div class="col-sm-3">
-                      {{ form.keterangan }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
-                    <div class="col-sm-3">
-                      {{ form.tanggal_selesai }}
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary">Clear</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                  </div>
-                </form>
-              </div>
             </div>
           </div>
         </div>
-        <!-- Modal edit
-        <div class="modal fade" id="editPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl ">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Edit Data Pendaftaran</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body ui-front">
-                <form method="POST" action="" id="editpendaftaran_form">
-                  {% csrf_token %}
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
-                    <div class="col-sm-3">
-                      {{ form.tanggal_pendaftaran }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">No. Pelayanan</label>
-                    <div class="col-sm-3">
-                      <input type="text" class="form-control" id="inputNoPelayanan" name="no_pelayanan" disabled>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Nama WP</label>
-                    <div class="col-sm-3">
-                      {{ form.nama }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Kecamatan</label>
-                    <div class="col-sm-3">
-                      {{ form.kecamatan }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Desa</label>
-                    <div class="col-sm-3">
-                      {{ form.desa }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Mutasi</label>
-                    <div class="col-sm-3">
-                      {{ form.mutasi }}
-                    </div>
-                    <label class="col-sm-2 col-form-label">Jumlah</label>
-                    <div class="col-sm-1">
-                      {{ form.jumlah }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Keterangan</label>
-                    <div class="col-sm-3">
-                      {{ form.keterangan }}
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
-                    <div class="col-sm-3">
-                      {{ form.tanggal_selesai }}
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        -->
       </div>
   </div>
   <!-- End of Pendaftaran-->
 {% endblock content %}
 
 {% block javascript %}
+<!--
 <script>
     $(document).ready(function(){
           $('#deletependaftaran').click(function(){
@@ -327,4 +173,5 @@
         })
     })
 </script>
+-->
 {% endblock javascript %}

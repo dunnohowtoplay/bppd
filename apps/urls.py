@@ -1,14 +1,15 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
-from dal import autocomplete
+
 
 app_name = 'apps'
 urlpatterns = [
     path('', views.Home.as_view(), name='home'),
-    path('pendaftaran/', views.PendaftaranView.as_view(), name='pendaftaran'),
-    #path('pendaftaran/tambah', views.PendaftaranView.tambahpendaftaran, name='tambah-pendaftaran'),
-    #path('pendaftaran/edit', views.PendaftaranView.editpendaftaran, name='edit-pendaftaran'),
-    #path('pendaftaran/delete', views.deletependaftaran, name='delete-pendaftaran'),
+    path('pendaftaran/', views.daftar_list, name='pendaftaran'),
+    path('pendaftaran/tambah', views.daftar_create, name='daftar_create'),
+    path('pendaftaran/edit', views.daftar_update, name='daftar-update'),
+    path('pendaftaran/delete', views.daftar_delete, name='daftar-delete'),
+    path('pendataan/', views.Pendataan_view, name='pendataan'),
     
 ]
