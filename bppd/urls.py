@@ -17,10 +17,23 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from apps import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.urls')),
+
+    url(
+        'desa-autocomplete/$',
+        views.DesaAutocomplete.as_view(),
+        name='selectdesa',
+    ),
+    url(
+        'kecamatan-autocomplete/$',
+        views.KecamatanAutocomplete.as_view(),
+        name='selectkecamatan',
+    ),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

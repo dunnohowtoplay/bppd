@@ -1,0 +1,258 @@
+{% extends "apps/base.html" %}
+
+{% block nav %}
+<a class="nav-link" id="nav-home-tab" data-bs-toggle="tab" href="{% url 'apps:home' %}" role="tab"
+    aria-controls="nav-home" aria-selected="true">Home</a>
+<a class="nav-link active" id="nav-profile-tab" data-bs-toggle="tab" href="{% url 'apps:pendaftaran' %}" role="tab"
+    aria-controls="nav-profile" aria-selected="false">Pendaftaran</a>
+<a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="{% url 'apps:home' %}" role="tab"
+    aria-controls="nav-contact" aria-selected="false">Pendataan</a>
+{% endblock nav %}
+
+{% block content %}
+<!-- Pendaftaran -->
+<div class="tab-pane fade show active" id="nav-daftar" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div class="container-fluid">
+        <h4 class="text-muted" style="padding-top: 10px;">Pendaftaran - Wajib Pajak</h4>
+        <div>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahPendaftaran">
+            Tambah
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" id="editpendaftaran">Edit</button>
+          <button type="submit" class="btn btn-outline-danger btn-sm" id="deletependaftaran">Delete</button>
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-sm btn-outline-primary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuReference">
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendaftaran">CSV</a></li>
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendaftaran">Excel</a></li>
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendaftaran">PDF</a></li>
+            </ul>
+          </div>
+          <div class="btn btn-sm">
+            <form class="d-flex">
+              <input class="form-control me-2 rounded" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+        <hr>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">No.Pelayanan</th>
+                        <th scope="col">Nama WP</th>
+                        <th scope="col">Desa - Kecamatan</th>
+                        <th scope="col">Mutasi</th>
+                        <th scope="col">Jumlah</th>
+                        <th scope="col">Ket.</th>
+                        <th scope="col">Tanggal Penyelesaian</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% csrf_token %}
+                      {% for data in datas %}
+                      <tr id="data-{{data.id}}">
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.id}}" aria-label="..."></td>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
+                        <td>{{data.no_pelayanan}}</td>
+                        <td>{{data.nama}}</td>
+                        <td>{{data.desa}} - {{data.kecamatan}}</td>
+                        <td>{{data.mutasi}}</td>
+                        <td>{{data.jumlah}}</td>
+                        <td>{{data.keterangan}}</td>
+                        <td>{{data.tanggal_selesai|date:'d-m-Y'}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <hr>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- Modal Export Pendaftaran-->
+        <div class="modal fade" id="modalexportPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Export to ...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Tekan tombol download untuk export file
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <a href="#" type="button" class="btn btn-primary">Download</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Tambah-->
+        <div class="modal fade" id="tambahPendaftaran" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl ">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendaftaran</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body ui-front">
+                <form id='addpendaftaran' action=''>
+                {% csrf_token %}
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
+                      <div class="col-sm-3">
+                        <input class="form-control" type="date" value="" id="inputTanggalPendaftaran" name='tanggal_pendaftaran'>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Nama WP</label>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputNamaWP" name='namaWP'>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Kecamatan</label>
+                      <div class="col-sm-3">
+                        <input class="form-select" list="listkecamatan" placeholder="Pilih Kecamatan" name='kecamatan'>
+                            <datalist id="listkecamatan">
+                                {% for kec in kecamatans %}
+                                <option>{{kec.nama}}</option>
+                                {% endfor %}
+                            </datalist>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Desa</label>
+                      <div class="col-sm-3">
+                        <input class="form-select" list="listdesa" placeholder="Pilih Desa" name='desa'>
+                            <datalist id="listdesa">
+                                {% for desa in desas %}
+                                <option>{{desa.nama}}</option>
+                                {% endfor %}
+                            </datalist>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Mutasi</label>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" id="inputMutasi" name='mutasi'>
+                      </div>
+                      <label class="col-sm-2 col-form-label">Jumlah</label>
+                      <div class="col-sm-1">
+                        <input type="text" class="form-control" id="inputJumlah" name='jumlah'>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Keterangan</label>
+                      <div class="col-sm-3">
+                        <input class="form-select" list="listketerangan" placeholder="Keterangan" name='keterangan'>
+                            <datalist id="listketerangan">
+                                <option>PROSES</option>
+                                <option>SELESAI</option>
+                            </datalist>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
+                      <div class="col-sm-3">
+                        <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai" name='tanggal_selesai'>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                      <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!-- End of Pendaftaran-->
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    // Create Django Ajax Call
+    $("form#addpendaftaran").submit(function() {
+        var tanggal_pendaftaran_input = $('input[name="tanggal_pendaftaran"]').val().trim();
+        var namaWPInput = $('input[name="namaWP"]').val().trim();
+        var kecamatanInput = $('input[name="kecamatan"]').val().trim();
+        var desaInput = $('input[name="desa"]').val().trim();
+        var mutasiInput = $('input[name="mutasi"]').val().trim();
+        var jumlahInput = $('input[name="jumlah"]').val().trim();
+        var keteranganInput = $('input[name="keterangan"]').val().trim();
+        var tanggal_selesai_Input = $('input[name="tanggal_selesai"]').val().trim();
+        if (tanggal_pendaftaran_input && namaWPInput && kecamatanInput && desaInput && mutasiInput && jumlahInput && keteranganInput && tanggal_selesai_Input) {
+            // Create Ajax Call
+            $.ajax({
+                url: '.',
+                data: {
+                    'tanggal_pendaftaran': tanggal_pendaftaran_input,
+                    'namaWP': namaWPInput,
+                    'kecamatan': kecamatanInput,
+                    'desa': desaInput,
+                    'mutasi': mutasiInput,
+                    'jumlah': jumlahInput,
+                    'keterangan': keteranganInput,
+                    'tanggal_selesai': tanggal_selesai_Input,
+                },
+                dataType: 'json',
+                //success: function (data) {
+                    //if (data.datadaftar) {
+                    //appendToUsrTable(data.datadaftar);
+                    //}
+                //}
+                success: function () {
+                    alert("success")
+                    console.log(data)
+                }
+            });
+        } else {
+            alert("All fields must have a valid value.");
+        }
+        $('form#addpendaftaran').trigger("reset");
+        return false;
+    });
+    function appendToUsrTable(datadaftar) {
+    $("#userTable > tbody:last-child").append(`
+            <tr id="data-${datadaftar.id}">
+                <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{datadaftar.id}}" aria-label="..."></td>
+                <td>{{datadaftar.tanggal_pendaftaran|date:'d-m-Y'}}</td>
+                <td>{{datadaftar.no_pelayanan}}</td>
+                <td>{{datadaftar.nama}}</td>
+                <td>{{datadaftar.desa}} - {{datadaftar.kecamatan}}</td>
+                <td>{{datadaftar.mutasi}}</td>
+                <td>{{datadaftar.jumlah}}</td>
+                <td>{{datadaftar.keterangan}}</td>
+                <td>{{datadaftar.tanggal_selesai|date:'d-m-Y'}}</td>
+            </tr>
+        `);
+    }
+</script>
+{% endblock javascript %}

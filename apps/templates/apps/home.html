@@ -1,0 +1,24 @@
+{% extends "apps/base.html" %}
+{% load static %}
+{% block nav %}
+<a class="nav-link active" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
+    aria-controls="nav-home" aria-selected="true">Home</a>
+<a class="nav-link" id="nav-profile-tab"  href="{% url 'apps:pendaftaran' %}" role="tab"
+    aria-controls="nav-profile" aria-selected="false">Pendaftaran</a>
+<a class="nav-link" id="nav-contact-tab" href="{% url 'apps:home' %}" role="tab"
+    aria-controls="nav-contact" aria-selected="false">Pendataan</a>
+{% endblock nav %}
+
+{% block content %}
+<!-- Home -->
+<div class="tab-pane fade show active text-center" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="card-body">
+        <img src="{% static 'media/logo.png' %}" alt="" width="250" height="300">
+        <br>
+        <br>
+        <h2 class="card-title">KABUPATEN KUNINGAN</h2>
+        <h5 class="card-text">PELAYANAN BADAN PENGELOLAAN PENDAPATAN DAERAH</h5>
+    </div>
+</div>
+<!-- End of Home -->
+{% endblock content %}

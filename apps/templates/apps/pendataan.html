@@ -1,0 +1,357 @@
+{% extends "apps/base.html" %}
+
+{% block nav %}
+<a class="nav-link" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
+    aria-controls="nav-home" aria-selected="false">Home</a>
+<a class="nav-link active" id="nav-profile-tab"  href="{% url 'apps:pendaftaran' %}" role="tab"
+    aria-controls="nav-profile" aria-selected="true">Pendaftaran</a>
+<a class="nav-link" id="nav-contact-tab"  href="{% url 'apps:home' %}" role="tab"
+    aria-controls="nav-contact" aria-selected="false">Pendataan</a>
+{% endblock nav %}
+
+{% block content %}
+<!-- Pendataan -->
+<div class="tab-pane fade" id="nav-data" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div class="container-fluid">
+        <h4 class="text-muted" style="padding-top: 10px;">Pendataan- Wajib Pajak</h4>
+        <div>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahPendataan">
+            Tambah
+          </button>
+          <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
+          <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+          <div class="btn-group">
+            <button type="button" class="disabled btn btn-sm btn-outline-primary">Export</button>
+            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
+              <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuReference">
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendataan">CSV</a></li>
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendataan">Excel</a></li>
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendataan">PDF</a></li>
+            </ul>
+          </div>
+          <div class="btn btn-sm">
+            <form class="d-flex">
+              <input class="form-control me-2 rounded" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+        <hr>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">No</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Nama WP</th>
+                        <th scope="col">SPPT Lama</th>
+                        <th scope="col">Nama Wajib Pajak Lama</th>
+                        <th scope="col">Tarif PBB baru</th>
+                        <th scope="col">SPPT Baru</th>
+                        <th scope="col">Nama Wajib Pajak Baru</th>
+                        <th scope="col">Tarif PBB Baru</th>
+                        <th scope="col">Ket.</th>
+                        <th scope="col">Transaksi</th>
+                        <th scope="col">Luas Tanah</th>
+                        <th scope="col">Luas Bangunan</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">1</th>
+                        <td>01/12/2020</td>
+                        <td>Hidayat Dkk</td>
+                        <td>321014001400100020</td>
+                        <td>Midkal</td>
+                        <td>16500</td>
+                        <td>321014001400100020</td>
+                        <td>Hidayat</td>
+                        <td>16500</td>
+                        <td>TETAP</td>
+                        <td>JB</td>
+                        <td>75</td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">2</th>
+                        <td></td>
+                        <td></td>
+                        <td>321014001400600460</td>
+                        <td>Saodah</td>
+                        <td>16500</td>
+                        <td>321014001400600460</td>
+                        <td>Nurasa</td>
+                        <td>41890</td>
+                        <td>NAIK</td>
+                        <td>JB</td>
+                        <td>182</td>
+                        <td>54</td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">3</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>321014001400601220</td>
+                        <td>Kurdian</td>
+                        <td>49403</td>
+                        <td>BARU</td>
+                        <td>JB</td>
+                        <td>132</td>
+                        <td>54</td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">4</th>
+                        <td></td>
+                        <td></td>
+                        <td>321014001401101040</td>
+                        <td>Oman</td>
+                        <td>28720</td>
+                        <td>321014001401101040</td>
+                        <td>Oman</td>
+                        <td>16500</td>
+                        <td>TURUN</td>
+                        <td>JB</td>
+                        <td>440</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">5</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>321014001401102130</td>
+                        <td>Inah Sarinah</td>
+                        <td>16500</td>
+                        <td>TETAP</td>
+                        <td>JB</td>
+                        <td>527</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">6</th>
+                        <td></td>
+                        <td>Dian Prisila Dkk</td>
+                        <td>321015000500900360</td>
+                        <td>Soerah</td>
+                        <td>16500</td>
+                        <td>32101500500900360</td>
+                        <td>Soerah</td>
+                        <td>16500</td>
+                        <td>TETAP</td>
+                        <td></td>
+                        <td>181</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
+                        <th scope="row">7</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>321015000500900870</td>
+                        <td>Soerah</td>
+                        <td>17054</td>
+                        <td>BARU</td>
+                        <td>JB</td>
+                        <td>323</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        <hr>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- Modal Export Pendataan-->
+        <div class="modal fade" id="modalexportPendataan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Export to ...</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Tekan tombol download untuk export file
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                <a href="#" type="button" class="btn btn-primary">Download</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal Tambah Pendataan-->
+        <div class="modal fade" id="tambahPendataan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl ">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendataan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Tanggal Pendaftar</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="date" value="" id="inputTanggalPendaftaran">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">No. Pelayanan</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="inputNoPelayanan">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Nama WP</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="inputNamaWP">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Kecamatan</label>
+                    <div class="col-sm-3">
+                      <select id="inputState" class="form-select">
+                        <option selected>Kecamatan...</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Desa</label>
+                    <div class="col-sm-3">
+                      <select id="inputState" class="form-select">
+                        <option selected>Desa...</option>
+                        <option>...</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Mutasi</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="inputMutasi">
+                    </div>
+                    <label class="col-sm-2 col-form-label">Jumlah</label>
+                    <div class="col-sm-1">
+                      <input type="text" class="form-control" id="inputJumlah">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Keterangan</label>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control" id="inputKeterangan">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">SPPT Lama</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="text" value="" id="inputSPPTLama">
+                    </div>
+                    <label class="col-sm-2 col-form-label">SPPT Baru</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="text" value="" id="inputSPPTBaru">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Nama Wajib Pajak Lama</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="text" value="" id="inputNamaWPLama">
+                    </div>
+                    <label class="col-sm-2 col-form-label">Nama Wajib Pajak Baru</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="text" value="" id="inputNamaWPBaru">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Tarif Pajak Lama</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="text" value="" id="inputTarifPajakLama">
+                    </div>
+                    <label class="col-sm-2 col-form-label">Tarif Pajak Baru</label>
+                    <div class="col-sm-3">
+                      <input class="form-control" type="text" value="" id="inputTarifPajakBaru">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Keterangan</label>
+                    <div class="col-sm-2">
+                      <select id="inputKeterangan" class="form-select">
+                        <option selected disabled>Pilih Transaksi...</option>
+                        <option>TETAP</option>
+                        <option>BARU</option>
+                        <option>NAIK</option>
+                        <option>TURUN</option>
+                      </select>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Transaksi</label>
+                    <div class="col-sm-1">
+                      <input class="form-control" type="text" value="" id="inputTransaksi">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Luas Tanah</label>
+                    <div class="col-sm-1">
+                      <input class="form-control" type="text" value="" id="inputLuasTanah">
+                    </div>
+                    <label class="col-sm-2 col-form-label">Luas Bangunan</label>
+                    <div class="col-sm-1">
+                      <input class="form-control" type="text" value="" id="inputLuasBangunan">
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary">Clear</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                    <button type="button" class="btn btn-primary">Tambah</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- End of Pendataan -->
+{% endblock content %}
+
+{% block javascript %}
+
+{% endblock javascript %}

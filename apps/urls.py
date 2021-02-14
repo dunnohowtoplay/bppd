@@ -3,19 +3,12 @@ from django.conf.urls import url
 from . import views
 from dal import autocomplete
 
-
+app_name = 'apps'
 urlpatterns = [
-    path('', views.PendaftaranView.as_view(), name='pendaftaran'),
-
-
-    url(
-        'desa-autocomplete/$',
-        views.DesaAutocomplete.as_view(),
-        name='selectdesa',
-    ),
-    url(
-        'kecamatan-autocomplete/$',
-        views.KecamatanAutocomplete.as_view(),
-        name='selectkecamatan',
-    ),
+    path('', views.Home.as_view(), name='home'),
+    path('pendaftaran/', views.PendaftaranView.as_view(), name='pendaftaran'),
+    #path('pendaftaran/tambah', views.PendaftaranView.tambahpendaftaran, name='tambah-pendaftaran'),
+    #path('pendaftaran/edit', views.PendaftaranView.editpendaftaran, name='edit-pendaftaran'),
+    #path('pendaftaran/delete', views.deletependaftaran, name='delete-pendaftaran'),
+    
 ]
