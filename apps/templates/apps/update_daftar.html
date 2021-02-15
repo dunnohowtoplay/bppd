@@ -4,11 +4,11 @@
 
 <!-- Modal Tambah-->
 <div class="modal-header">
-    <h5 class="modal-title">Tambah Pendaftaran</h5>
+    <h5 class="modal-title">Edit Pendaftaran</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body ui-front">
-    <form method="POST" data-url="{% url 'apps:update_create' form.instance.id %}" class="update-daftar-form">
+    <form method="POST" data-url="{% url 'apps:daftar-update' form.instance.no_pelayanan %}" class="update-daftar-form">
         {% csrf_token %}
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>

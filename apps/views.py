@@ -31,7 +31,7 @@ class Home(View):
         return render(request, self.template_name)
 
 def daftar_list(request):
-    datas = Pendaftaran.objects.all()
+    datas = Pendaftaran.objects.all().order_by('no_pelayanan')
     form = PendaftaranForm()
     context = {
         'datas': datas,
@@ -68,19 +68,21 @@ def Pendataan_view(request):
     return render(request, 'apps/pendataan.html', context)
 
 
-def daftar_update(request,id):
-	data_id = get_object_or_404(Pendaftaran,id=id)
-	if request.method == 'POST':
-		form = BookForm(request.POST,instance=data_id)
-	else:
-		form = BookForm(instance=data_id)
-	return save_all(request,form,'apps/update_daftar.html')
+def daftar_update(request, no_pelayanan):
+    #dataid = get_object_or_404(Pendaftaran,id=data_id)
+    dataid= Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
+    print(dataid)
+    if request.method == 'POST':
+        form = PendaftaranForm(request.POST,instance=dataid)
+    else:
+        form = PendaftaranForm(instance=dataid)
+    return save_all(request,form,'apps/update_daftar.html')
 
 def daftar_delete(request):
     if request.method == "POST":
         data_ids = request.POST.getlist('deleteid[]')
-        for id in data_ids:
-            x = Pendaftaran.objects.get(pk=id)
+        for no_pelayanan in data_ids:
+            x = Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
             print(x)
             x.delete()
 

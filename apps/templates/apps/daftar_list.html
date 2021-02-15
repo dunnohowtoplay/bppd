@@ -1,6 +1,6 @@
 {% for data in datas %}
-<tr id="{{data.id}}">
-    <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.id}}" aria-label="..."></td>
+<tr id="{{data.no_pelayanan}}">
+    <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.no_pelayanan}}" aria-label="..."></td>
     <th scope="row">{{ forloop.counter }}</th>
     <td>{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
     <td>{{data.no_pelayanan}}</td>
@@ -10,5 +10,9 @@
     <td>{{data.jumlah}}</td>
     <td>{{data.keterangan}}</td>
     <td>{{data.tanggal_selesai|date:'d-m-Y'}}</td>
+</tr>
+{% empty %}
+<tr>
+    <td colspan="10" class="text-center bg-warning">No Data Pendaftaran</td>
 </tr>
 {% endfor %}
