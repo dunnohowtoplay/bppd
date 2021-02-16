@@ -5,6 +5,8 @@ from .forms import PendaftaranForm
 from django.http import JsonResponse
 from django.views.generic import View
 from django.template.loader import render_to_string
+from .filters import NoPendaftaranFilter
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class DesaAutocomplete(autocomplete.Select2QuerySetView):
@@ -30,12 +32,26 @@ class Home(View):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name)
 
+#Pendaftaran function
 def daftar_list(request):
     datas = Pendaftaran.objects.all().order_by('no_pelayanan')
     form = PendaftaranForm()
+    filtered = NoPendaftaranFilter(request.GET, queryset=datas)
+    f = NoPendaftaranFilter(request.GET, queryset=datas).qs
+    paginator = Paginator(f, 10)
+    page = request.GET.get('page')
+    try:
+        pages = paginator.page(page)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
     context = {
         'datas': datas,
-        'form':form
+        'form':form,
+        'filter' : f,
+        'filtered':filtered,
+        'pages' : pages,
         }
     return render(request, 'apps/pendaftaran.html',context)
 
@@ -62,14 +78,8 @@ def daftar_create(request):
         form = PendaftaranForm()
     return save_all(request,form,'apps/create_daftar.html')
 
-def Pendataan_view(request):
-    form=PendaftaranForm()
-    context = {'form':form}
-    return render(request, 'apps/pendataan.html', context)
-
 
 def daftar_update(request, no_pelayanan):
-    #dataid = get_object_or_404(Pendaftaran,id=data_id)
     dataid= Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
     print(dataid)
     if request.method == 'POST':
@@ -88,3 +98,8 @@ def daftar_delete(request):
 
         return redirect('apps:pendaftaran')
 
+#Pendataan Function
+def Pendataan_view(request):
+    #form=PendaftaranForm()
+    #context = {'form':form}
+    return render(request, 'apps/pendataan.html')

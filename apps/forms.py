@@ -5,20 +5,11 @@ from tempus_dominus.widgets import DatePicker
 
 
 class PendaftaranForm(forms.ModelForm):
-    desa = forms.ModelChoiceField(
-        queryset=Desa.objects.all(),
-        widget=autocomplete.ModelSelect2(
-            url='selectdesa',
-            attrs={
-                'class':'form-control',
-                'id':'pilihdesa',
-                'data-placeholder': 'Desa ...',
-                })
-    )
     class Meta:
         model=Pendaftaran
         fields= (
             'tanggal_pendaftaran',
+            'no_pelayanan',
             'nama',
             'desa',
             'kecamatan',
@@ -35,12 +26,26 @@ class PendaftaranForm(forms.ModelForm):
                 }
             ),
 
+            'no_pelayanan':forms.TextInput(
+                attrs={
+                    'class':'form-control disabled',
+                    'readonly':'',
+                }   
+            ),
+
             'nama':forms.TextInput(
                 attrs={
                     'class':'form-control',
                 }
             ),
-
+            'desa':autocomplete.ModelSelect2(
+                url='selectdesa',
+                attrs={
+                    'class':'form-control',
+                    'id':'pilihdesa',
+                    'data-placeholder': 'Desa ...',
+                }
+            ),
             'kecamatan':autocomplete.ModelSelect2(
                 url='selectkecamatan',
                 attrs={

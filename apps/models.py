@@ -24,8 +24,8 @@ class Pendaftaran(models.Model):
     tanggal_pendaftaran = models.DateField()
     no_pelayanan=models.CharField(max_length=11, unique=True, blank=True, null=True, default=0)
     nama = models.CharField(max_length=100)
-    desa = models.ForeignKey(Desa,  null=True, blank=True, on_delete=models.CASCADE)
-    kecamatan = models.ForeignKey(Kecamatan, null=True, blank=True, on_delete=models.CASCADE)
+    desa = models.ForeignKey(Desa,  null=True, blank=True, on_delete=models.DO_NOTHING)
+    kecamatan = models.ForeignKey(Kecamatan, null=True, blank=True, on_delete=models.DO_NOTHING)
     mutasi = models.CharField(max_length=255)
     jumlah = models.IntegerField()
     keterangan = models.CharField(max_length=20, choices=KET_CHOICES)
@@ -33,6 +33,9 @@ class Pendaftaran(models.Model):
 
     def __str__(self):
         return f"{self.no_pelayanan} - {self.nama}"
+
+
+
 
 
 #Signals configurations
