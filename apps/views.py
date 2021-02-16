@@ -100,6 +100,14 @@ def daftar_delete(request):
 
 #Pendataan Function
 def Pendataan_view(request):
-    #form=PendaftaranForm()
-    #context = {'form':form}
-    return render(request, 'apps/pendataan.html')
+    data_daftars = Pendaftaran.objects.all()
+    sppt_lamas = SPPTLama.objects.all()
+    sppt_barus = SPPTBaru.objects.all()
+    list_sppt_baru = SPPTBaru.objects.filter(sppt_lama__no_sppt_lama='124512222200014528')
+    context = {
+        'data_daftars':data_daftars,
+        'sppt_lamas':sppt_lamas,
+        'sppt_barus':sppt_barus,
+        'list_sppt_baru':list_sppt_baru,
+        }
+    return render(request, 'apps/pendataan.html', context)

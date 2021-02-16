@@ -1,0 +1,41 @@
+{% for data in sppt_lamas %}
+<tr id="{{data.no_sppt_lama}}">
+    <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.no_sppt_lama}}" aria-label="..."></td>
+    <td>{{data.no_pelayanan.no_pelayanan}}</td>
+    <td>{{data.no_pelayanan.nama}}</td>
+    <td>{{data.no_sppt_lama}}</td>
+    <td>{{data.nama_wp_lama}}</td>
+    <td>Rp. {{data.tarif_lama|floatformat:2}}</td>
+    {% for no, x in enumerate(list_sppt_baru) %}
+        {% if no == 0%}
+        <td>{{x.no_sppt_baru}}</td>
+        <td>{{x.nama_wp_baru}}</td>
+        <td>Rp. {{x.tarif_baru|floatformat:2}}</td>
+        <td>{{x.keterangan}}</td>
+        <td>{{x.transaksi}}</td>
+        <td>{{x.luas_tanah}}</td>
+        <td>{{x.luas_bangunan}}</td>
+        {% else %}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{x.no_sppt_baru}}</td>
+            <td>{{x.nama_wp_baru}}</td>
+            <td>Rp. {{x.tarif_baru|floatformat:2}}</td>
+            <td>{{x.keterangan}}</td>
+            <td>{{x.transaksi}}</td>
+            <td>{{x.luas_tanah}}</td>
+            <td>{{x.luas_bangunan}}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</tr>
+{% empty %}
+<tr>
+    <td colspan="10" class="text-center">No Data Pendaftaran</td>
+</tr>
+{% endfor %}

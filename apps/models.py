@@ -34,7 +34,35 @@ class Pendaftaran(models.Model):
     def __str__(self):
         return f"{self.no_pelayanan} - {self.nama}"
 
+class SPPTLama(models.Model):
+    no_pelayanan = models.ForeignKey(Pendaftaran,  null=True, blank=True, on_delete=models.DO_NOTHING)
+    no_sppt_lama = models.CharField(max_length=18, unique=True, blank=True, null=True)
+    nama_wp_lama = models.CharField(max_length=100)
+    tarif_lama = models.DecimalField(max_digits=19, decimal_places=4)
 
+    def __str__(self):
+        return f"{self.no_pelayanan.nama} - {self.nama_wp_lama}"
+
+
+class SPPTBaru(models.Model):
+    KET_TRANSAKSI = [
+    ('TETAP', 'TETAP'),
+    ('BARU', 'BARU'),
+    ('NAIK', 'NAIK'),
+    ('TURUN', 'TURUN'),
+    ]
+    sppt_lama = models.ForeignKey(SPPTLama,  null=True, blank=True, on_delete=models.DO_NOTHING)
+    no_sppt_baru = models.CharField(max_length=18, unique=True, blank=True, null=True)
+    nama_wp_baru = models.CharField(max_length=100)
+    tarif_baru = models.DecimalField(max_digits=19, decimal_places=4)
+    keterangan = models.CharField(max_length=20, choices=KET_TRANSAKSI)
+    transaksi = models.CharField(max_length=20)
+    luas_tanah = models.IntegerField()
+    luas_bangunan = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.sppt_lama.no_pelayanan.no_pelayanan} - {self.sppt_lama.no_pelayanan.nama} - {self.sppt_lama.nama_wp_lama} - {self.nama_wp_baru}"
+#class Pendataan(models.Model):
 
 
 

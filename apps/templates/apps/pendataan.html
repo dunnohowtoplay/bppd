@@ -11,7 +11,7 @@
 
 {% block content %}
 <!-- Pendataan -->
-<div class="tab-pane fade" id="nav-data" role="tabpanel" aria-labelledby="nav-contact-tab">
+<div class="tab-pane fade show active" id="nav-data" role="tabpanel" aria-labelledby="nav-contact-tab">
     <div class="container-fluid">
         <h4 class="text-muted" style="padding-top: 10px;">Pendataan- Wajib Pajak</h4>
         <div>
@@ -46,8 +46,7 @@
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">No</th>
-                        <th scope="col">Tanggal</th>
+                        <th scope="col">No_pelayanan</th>
                         <th scope="col">Nama WP</th>
                         <th scope="col">SPPT Lama</th>
                         <th scope="col">Nama Wajib Pajak Lama</th>
@@ -62,117 +61,8 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">1</th>
-                        <td>01/12/2020</td>
-                        <td>Hidayat Dkk</td>
-                        <td>321014001400100020</td>
-                        <td>Midkal</td>
-                        <td>16500</td>
-                        <td>321014001400100020</td>
-                        <td>Hidayat</td>
-                        <td>16500</td>
-                        <td>TETAP</td>
-                        <td>JB</td>
-                        <td>75</td>
-                      </tr>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">2</th>
-                        <td></td>
-                        <td></td>
-                        <td>321014001400600460</td>
-                        <td>Saodah</td>
-                        <td>16500</td>
-                        <td>321014001400600460</td>
-                        <td>Nurasa</td>
-                        <td>41890</td>
-                        <td>NAIK</td>
-                        <td>JB</td>
-                        <td>182</td>
-                        <td>54</td>
-                      </tr>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">3</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>321014001400601220</td>
-                        <td>Kurdian</td>
-                        <td>49403</td>
-                        <td>BARU</td>
-                        <td>JB</td>
-                        <td>132</td>
-                        <td>54</td>
-                      </tr>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">4</th>
-                        <td></td>
-                        <td></td>
-                        <td>321014001401101040</td>
-                        <td>Oman</td>
-                        <td>28720</td>
-                        <td>321014001401101040</td>
-                        <td>Oman</td>
-                        <td>16500</td>
-                        <td>TURUN</td>
-                        <td>JB</td>
-                        <td>440</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">5</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>321014001401102130</td>
-                        <td>Inah Sarinah</td>
-                        <td>16500</td>
-                        <td>TETAP</td>
-                        <td>JB</td>
-                        <td>527</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">6</th>
-                        <td></td>
-                        <td>Dian Prisila Dkk</td>
-                        <td>321015000500900360</td>
-                        <td>Soerah</td>
-                        <td>16500</td>
-                        <td>32101500500900360</td>
-                        <td>Soerah</td>
-                        <td>16500</td>
-                        <td>TETAP</td>
-                        <td></td>
-                        <td>181</td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></td>
-                        <th scope="row">7</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>321015000500900870</td>
-                        <td>Soerah</td>
-                        <td>17054</td>
-                        <td>BARU</td>
-                        <td>JB</td>
-                        <td>323</td>
-                        <td></td>
-                      </tr>
+                      {% csrf_token %}
+                      {% include "apps/pendataan_list.html" %}
                     </tbody>
                   </table>
             </div>

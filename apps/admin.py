@@ -4,3 +4,5 @@ from .models import *
 admin.site.register(Kecamatan)
 admin.site.register(Desa)
 admin.site.register(Pendaftaran)
+admin.site.register(SPPTLama)
+admin.site.register(SPPTBaru)
