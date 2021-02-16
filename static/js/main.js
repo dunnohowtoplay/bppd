@@ -105,15 +105,13 @@ $(document).ready(function(){
         }
     }
 
+//CRUD Pendaftaran
 // create 
 $(".show-form").click(ShowForm);
 $("#crud-modal").on("submit",".create-daftar-form",SaveForm);
-
 //update
-//$("#editpendaftaran").click(EditForm);
 $('.show-form-update').on("click", EditForm);
 $('#crud-modal').on("submit",".update-daftar-form", EditForm)
-
 //delete
 $('#deletependaftaran').on("click", deleteDaftar);
 });
