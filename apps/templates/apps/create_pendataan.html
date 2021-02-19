@@ -1,0 +1,139 @@
+{% load static %}
+{% block head %}
+{% endblock head %}
+
+<!-- Modal Tambah-->
+<div class="modal-header">
+    <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendataan</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Tanggal Pendaftar</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="date" value="" id="inputTanggalPendaftaran">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">No. Pelayanan</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="inputNoPelayanan">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Nama WP</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="inputNamaWP">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Kecamatan</label>
+            <div class="col-sm-3">
+                <select id="inputState" class="form-select">
+                    <option selected>Kecamatan...</option>
+                    <option>...</option>
+                </select>
+            </div>
+            <label class="col-sm-2 col-form-label">Desa</label>
+            <div class="col-sm-3">
+                <select id="inputState" class="form-select">
+                    <option selected>Desa...</option>
+                    <option>...</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Mutasi</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="inputMutasi">
+            </div>
+            <label class="col-sm-2 col-form-label">Jumlah</label>
+            <div class="col-sm-1">
+                <input type="text" class="form-control" id="inputJumlah">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Keterangan</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="inputKeterangan">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai">
+            </div>
+        </div>
+        <hr>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">SPPT Lama</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" value="" id="inputSPPTLama">
+            </div>
+            <label class="col-sm-2 col-form-label">SPPT Baru</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" value="" id="inputSPPTBaru">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Nama Wajib Pajak Lama</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" value="" id="inputNamaWPLama">
+            </div>
+            <label class="col-sm-2 col-form-label">Nama Wajib Pajak Baru</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" value="" id="inputNamaWPBaru">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Tarif Pajak Lama</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" value="" id="inputTarifPajakLama">
+            </div>
+            <label class="col-sm-2 col-form-label">Tarif Pajak Baru</label>
+            <div class="col-sm-3">
+                <input class="form-control" type="text" value="" id="inputTarifPajakBaru">
+            </div>
+        </div>
+        <hr>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Keterangan</label>
+            <div class="col-sm-2">
+                <select id="inputKeterangan" class="form-select">
+                    <option selected disabled>Pilih Transaksi...</option>
+                    <option>TETAP</option>
+                    <option>BARU</option>
+                    <option>NAIK</option>
+                    <option>TURUN</option>
+                </select>
+            </div>
+            <label class="col-sm-2 col-form-label">Transaksi</label>
+            <div class="col-sm-1">
+                <input class="form-control" type="text" value="" id="inputTransaksi">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Luas Tanah</label>
+            <div class="col-sm-1">
+                <input class="form-control" type="text" value="" id="inputLuasTanah">
+            </div>
+            <label class="col-sm-2 col-form-label">Luas Bangunan</label>
+            <div class="col-sm-1">
+                <input class="form-control" type="text" value="" id="inputLuasBangunan">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="reset" class="btn btn-secondary">Clear</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+            <button type="button" class="btn btn-primary">Tambah</button>
+        </div>
+    </form>
+</div>
+
+{% block javascript %}
+<script>
+    $("#pilihdesa").select2({ dropdownParent: $(".class-desa") });
+    $("#pilihkecamatan").select2({ dropdownParent: $(".class-kecamatan") });
+</script>
+{% endblock javascript %}

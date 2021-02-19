@@ -61,7 +61,7 @@ class PendaftaranForm(forms.ModelForm):
                 }
             ),
 
-            'jumlah':forms.TextInput(
+            'jumlah':forms.NumberInput(
                 attrs={
                     'class':'form-control'
                 }
@@ -78,6 +78,88 @@ class PendaftaranForm(forms.ModelForm):
                 'append': 'fa fa-calendar',
                 'icon_toggle': True,
                 }
+            ),
+        }
+
+class SPPTLamaForm(forms.ModelForm):
+    class Meta:
+        model = SPPTLama
+        fields= (
+            'no_sppt_lama',
+            'nama_wp_lama',
+            'tarif_lama',
+            )
+        widgets =  {
+            'no_sppt_lama':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                }   
+            ),
+
+            'nama_wp_lama':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+
+            'tarif_lama':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+        }
+
+class SPPTBaruForm(forms.ModelForm):
+    class Meta:
+        model = SPPTBaru
+        fields= (
+            'no_sppt_baru',
+            'nama_wp_baru',
+            'tarif_baru',
+            'keterangan',
+            'transaksi',
+            'luas_tanah',
+            'luas_bangunan',
+            )
+        widgets =  {
+            'no_sppt_baru':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                }   
+            ),
+
+            'nama_wp_baru':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+
+            'tarif_baru':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+            'keterangan':forms.Select(
+                attrs={
+                    'class':'form-control',
+                }   
+            ),
+
+            'transaksi':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+
+            'luas_tanah':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+            'luas_bangunan':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                }   
             ),
         }
 

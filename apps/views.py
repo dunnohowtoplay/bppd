@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from .forms import PendaftaranForm
+from .forms import *
 from django.http import JsonResponse
 from django.views.generic import View
 from django.template.loader import render_to_string
@@ -101,13 +101,15 @@ def daftar_delete(request):
 #Pendataan Function
 def Pendataan_view(request):
     data_daftars = Pendaftaran.objects.all()
-    sppt_lamas = SPPTLama.objects.all()
-    sppt_barus = SPPTBaru.objects.all()
-    list_sppt_baru = SPPTBaru.objects.filter(sppt_lama__no_sppt_lama='124512222200014528')
+    sppt_lamas = SPPTLama.objects.all().order_by('no_pelayanan')
+    sppt_barus = SPPTBaru.objects.all().order_by('sppt_lama__no_pelayanan')
+    form_spptlama = SPPTLamaForm()
+    form_spptbaru = SPPTBaruForm()
     context = {
         'data_daftars':data_daftars,
         'sppt_lamas':sppt_lamas,
         'sppt_barus':sppt_barus,
-        'list_sppt_baru':list_sppt_baru,
+        'form_spptlama':form_spptlama,
+        'form_spptbaru':form_spptbaru,
         }
     return render(request, 'apps/pendataan.html', context)
