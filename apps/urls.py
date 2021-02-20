@@ -8,11 +8,12 @@ urlpatterns = [
     path('', views.Home.as_view(), name='home'),
     #pendaftaran
     path('pendaftaran/', views.daftar_list, name='pendaftaran'),
-    path('pendaftaran/tambah', views.daftar_create, name='daftar_create'),
+    path('pendaftaran/create', views.daftar_create, name='daftar_create'),
     path('pendaftaran/<no_pelayanan>/edit', views.daftar_update, name='daftar-update'),
     path('pendaftaran/delete', views.daftar_delete, name='daftar-delete'),
 
     #pendataan
-    path('pendataan/', views.Pendataan_view, name='pendataan'),
+    path('pendataan/', views.pendataan_view, name='pendataan'),
+    path('pendataan/create', views.pendataan_create, name='pendataan_create'),
     
 ]

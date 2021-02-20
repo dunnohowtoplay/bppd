@@ -32,6 +32,11 @@ urlpatterns = [
         views.KecamatanAutocomplete.as_view(),
         name='selectkecamatan',
     ),
+    url(
+        'nopel-autocomplete/$',
+        views.NopelAutocomplete.as_view(),
+        name='selectnopel',
+    ),
     path('admin/', admin.site.urls),
     path('', include('apps.urls')),
 

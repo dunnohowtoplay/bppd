@@ -163,3 +163,84 @@ class SPPTBaruForm(forms.ModelForm):
             ),
         }
 
+class PendataanAutoForm(forms.ModelForm):
+    class Meta:
+        model=Pendaftaran
+        fields= (
+            'tanggal_pendaftaran',
+            'no_pelayanan',
+            'nama',
+            'desa',
+            'kecamatan',
+            'mutasi',
+            'jumlah',
+            'keterangan',
+            'tanggal_selesai',
+            )
+        widgets =  {
+            'tanggal_pendaftaran':DatePicker(
+                attrs={
+                'append': 'fa fa-calendar',
+                'icon_toggle': True,
+                'class':'form-control',
+                'readonly':'',
+                }
+            ),
+
+            'no_pelayanan':autocomplete.ListSelect2(
+                url='selectnopel',
+                attrs={
+                    'class':'form-control col-sm-3',
+                    'id' : 'pilih-nopel',
+                    'data-placeholder' : 'Masukan No Pelayanan ...'
+                }   
+            ),
+            'nama':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'readonly':'',
+                }
+            ),
+            'desa':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'readonly':'',
+                }
+            ),
+            'kecamatan':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'readonly':'',
+                }
+            ),
+
+            'mutasi':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'readonly':'',
+                }
+            ),
+
+            'jumlah':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                    'readonly':'',
+                }
+            ),
+
+            'keterangan':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                    'readonly':'',
+                }
+            ),
+
+            'tanggal_selesai':DatePicker(
+                attrs={
+                    'class':'form-control',
+                    'append': 'fa fa-calendar',
+                    'icon_toggle': True,
+                    'readonly':'',
+                }
+            ),
+        }

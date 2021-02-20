@@ -1,4 +1,6 @@
 {% extends "apps/base.html" %}
+{% load static %}
+
 {% block nav %}
 <a class="nav-link" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
     aria-controls="nav-home" aria-selected="false">Home</a>
@@ -15,7 +17,7 @@
         <h4 class="text-muted" style="padding-top: 10px;">Pendataan- Wajib Pajak</h4>
         <div>
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-primary btn-sm create-pendataan-show-form" data-bs-toggle="modal" data-bs-target="#crud-modal-pendataan">
+          <button type="button" class="btn btn-outline-primary btn-sm create-pendataan-show-form" data-url="{% url 'apps:pendataan_create' %}">
             Tambah
           </button>
           <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
@@ -108,6 +110,7 @@
         <div class="modal-dialog modal-xl ">
           <div class="modal-content">
             <!-- Modal Tambah-->
+            <!--
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendataan</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -117,57 +120,51 @@
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
                       <div class="col-sm-3">
-                          <input class="form-control" type="date" value="" id="inputTanggalPendaftaran">
+                          {{ form_data.tanggal_pendaftaran}}
                       </div>
                   </div>
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">No. Pelayanan</label>
-                      <div class="col-sm-3">
-                          <input type="text" class="form-control" id="inputNoPelayanan">
+                      <div class="col-sm-3 class-nopel">
+                          {{ form_data.no_pelayanan}}
                       </div>
                   </div>
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Nama WP</label>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control" id="inputNamaWP">
+                          {{ form_data.nama}}
                       </div>
                   </div>
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Kecamatan</label>
                       <div class="col-sm-3">
-                          <select id="inputState" class="form-select">
-                              <option selected>Kecamatan...</option>
-                              <option>...</option>
-                          </select>
+                          {{ form_data.kecamatan}}
                       </div>
                       <label class="col-sm-2 col-form-label">Desa</label>
                       <div class="col-sm-3">
-                          <select id="inputState" class="form-select">
-                              <option selected>Desa...</option>
-                              <option>...</option>
-                          </select>
+                          {{ form_data.desa}}
                       </div>
                   </div>
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Mutasi</label>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control" id="inputMutasi">
+                          {{ form_data.mutasi}}
                       </div>
                       <label class="col-sm-2 col-form-label">Jumlah</label>
                       <div class="col-sm-1">
-                          <input type="text" class="form-control" id="inputJumlah">
+                          {{ form_data.jumlah}}
                       </div>
                   </div>
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Keterangan</label>
                       <div class="col-sm-3">
-                          <input type="text" class="form-control" id="inputKeterangan">
+                          {{ form_data.keterangan}}
                       </div>
                   </div>
                   <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
                       <div class="col-sm-3">
-                          <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai">
+                          {{ form_data.tanggal_selesai}}
                       </div>
                   </div>
                   <hr>
@@ -361,6 +358,7 @@
                   </div>
               </form>
             </div>
+            -->
           </div>
         </div>
       </div>
@@ -370,5 +368,5 @@
 {% endblock content %}
 
 {% block javascript %}
-
+<script src="{% static 'js/pendataan.js' %}"></script>
 {% endblock javascript %}

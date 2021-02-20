@@ -3,124 +3,245 @@
 {% endblock head %}
 
 <!-- Modal Tambah-->
+<!-- Modal Tambah-->
 <div class="modal-header">
     <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendataan</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    <form>
+    <form method="POST" data-url="{% url 'apps:daftar_create' %}" class="create-daftar-form">
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Tanggal Pendaftar</label>
+            <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
             <div class="col-sm-3">
-                <input class="form-control" type="date" value="" id="inputTanggalPendaftaran">
+                {{ form_data.tanggal_pendaftaran}}
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">No. Pelayanan</label>
-            <div class="col-sm-3">
-                <input type="text" class="form-control" id="inputNoPelayanan">
+            <div class="col-sm-3 class-nopel">
+                {{ form_data.no_pelayanan}}
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Nama WP</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="inputNamaWP">
+                {{ form_data.nama}}
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Kecamatan</label>
             <div class="col-sm-3">
-                <select id="inputState" class="form-select">
-                    <option selected>Kecamatan...</option>
-                    <option>...</option>
-                </select>
+                {{ form_data.kecamatan}}
             </div>
             <label class="col-sm-2 col-form-label">Desa</label>
             <div class="col-sm-3">
-                <select id="inputState" class="form-select">
-                    <option selected>Desa...</option>
-                    <option>...</option>
-                </select>
+                {{ form_data.desa}}
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Mutasi</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="inputMutasi">
+                {{ form_data.mutasi}}
             </div>
             <label class="col-sm-2 col-form-label">Jumlah</label>
             <div class="col-sm-1">
-                <input type="text" class="form-control" id="inputJumlah">
+                {{ form_data.jumlah}}
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Keterangan</label>
             <div class="col-sm-3">
-                <input type="text" class="form-control" id="inputKeterangan">
+                {{ form_data.keterangan}}
             </div>
         </div>
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
             <div class="col-sm-3">
-                <input class="form-control" type="date" value="" id="inputTanggalPendaftaranSelesai">
+                {{ form_data.tanggal_selesai}}
             </div>
         </div>
         <hr>
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">SPPT Lama</label>
-            <div class="col-sm-3">
-                <input class="form-control" type="text" value="" id="inputSPPTLama">
+            <div class="col-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">SPPT Lama</label>
+                    <div class="col-sm-6">
+                        {{form_spptlama.no_sppt_lama}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nama Wajib Pajak Lama</label>
+                    <div class="col-sm-6">
+                        {{form_spptlama.nama_wp_lama}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Tarif Pajak Lama</label>
+                    <div class="col-sm-6">
+                        {{form_spptlama.tarif_lama}}
+                    </div>
+                </div>
             </div>
-            <label class="col-sm-2 col-form-label">SPPT Baru</label>
-            <div class="col-sm-3">
-                <input class="form-control" type="text" value="" id="inputSPPTBaru">
+            <div class="col-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">SPPT Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.no_sppt_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nama Wajib Pajak Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.nama_wp_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Tarif Pajak Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.tarif_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Keterangan</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.keterangan}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Transaksi</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.transaksi}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Luas Tanah</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.luas_tanah}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Luas Bangunan</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.luas_bangunan}}
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Nama Wajib Pajak Lama</label>
-            <div class="col-sm-3">
-                <input class="form-control" type="text" value="" id="inputNamaWPLama">
+            <div class="col-6">
             </div>
-            <label class="col-sm-2 col-form-label">Nama Wajib Pajak Baru</label>
-            <div class="col-sm-3">
-                <input class="form-control" type="text" value="" id="inputNamaWPBaru">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Tarif Pajak Lama</label>
-            <div class="col-sm-3">
-                <input class="form-control" type="text" value="" id="inputTarifPajakLama">
-            </div>
-            <label class="col-sm-2 col-form-label">Tarif Pajak Baru</label>
-            <div class="col-sm-3">
-                <input class="form-control" type="text" value="" id="inputTarifPajakBaru">
+            <div class="col-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">SPPT Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.no_sppt_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nama Wajib Pajak Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.nama_wp_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Tarif Pajak Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.tarif_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Keterangan</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.keterangan}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Transaksi</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.transaksi}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Luas Tanah</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.luas_tanah}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Luas Bangunan</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.luas_bangunan}}
+                    </div>
+                </div>
             </div>
         </div>
         <hr>
         <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Keterangan</label>
-            <div class="col-sm-2">
-                <select id="inputKeterangan" class="form-select">
-                    <option selected disabled>Pilih Transaksi...</option>
-                    <option>TETAP</option>
-                    <option>BARU</option>
-                    <option>NAIK</option>
-                    <option>TURUN</option>
-                </select>
+            <div class="col-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">SPPT Lama</label>
+                    <div class="col-sm-6">
+                        {{form_spptlama.no_sppt_lama}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nama Wajib Pajak Lama</label>
+                    <div class="col-sm-6">
+                        {{form_spptlama.nama_wp_lama}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Tarif Pajak Lama</label>
+                    <div class="col-sm-6">
+                        {{form_spptlama.tarif_lama}}
+                    </div>
+                </div>
             </div>
-            <label class="col-sm-2 col-form-label">Transaksi</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="text" value="" id="inputTransaksi">
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label class="col-sm-2 col-form-label">Luas Tanah</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="text" value="" id="inputLuasTanah">
-            </div>
-            <label class="col-sm-2 col-form-label">Luas Bangunan</label>
-            <div class="col-sm-1">
-                <input class="form-control" type="text" value="" id="inputLuasBangunan">
+            <div class="col-6">
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">SPPT Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.no_sppt_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Nama Wajib Pajak Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.nama_wp_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Tarif Pajak Baru</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.tarif_baru}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Keterangan</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.keterangan}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Transaksi</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.transaksi}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Luas Tanah</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.luas_tanah}}
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Luas Bangunan</label>
+                    <div class="col-sm-6">
+                        {{form_spptbaru.luas_bangunan}}
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
         <div class="modal-footer">
@@ -133,7 +254,6 @@
 
 {% block javascript %}
 <script>
-    $("#pilihdesa").select2({ dropdownParent: $(".class-desa") });
-    $("#pilihkecamatan").select2({ dropdownParent: $(".class-kecamatan") });
-</script>
+    $("#pilih-nopel").select2({dropdownParent: $(".class-nopel")});
+  </script>
 {% endblock javascript %}

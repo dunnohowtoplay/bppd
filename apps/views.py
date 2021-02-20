@@ -14,7 +14,7 @@ class DesaAutocomplete(autocomplete.Select2QuerySetView):
         qs = Desa.objects.all()
 
         if self.q:
-            qs = qs.filter(nama__icontains=self.q).order_by('nama')
+            qs = qs.filter(nama__icontains=self.q)
 
         return qs
 
@@ -24,6 +24,15 @@ class KecamatanAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(nama__icontains=self.q)
+
+        return qs
+
+class NopelAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Pendaftaran.objects.all()
+
+        if self.q:
+            qs = qs.filter(no_pelayanan__istartswith=self.q)
 
         return qs
 
@@ -99,17 +108,35 @@ def daftar_delete(request):
         return redirect('apps:pendaftaran')
 
 #Pendataan Function
-def Pendataan_view(request):
+def pendataan_view(request):
     data_daftars = Pendaftaran.objects.all()
     sppt_lamas = SPPTLama.objects.all().order_by('no_pelayanan')
     sppt_barus = SPPTBaru.objects.all().order_by('sppt_lama__no_pelayanan')
     form_spptlama = SPPTLamaForm()
     form_spptbaru = SPPTBaruForm()
+    form_data = PendataanAutoForm()
     context = {
         'data_daftars':data_daftars,
         'sppt_lamas':sppt_lamas,
         'sppt_barus':sppt_barus,
         'form_spptlama':form_spptlama,
         'form_spptbaru':form_spptbaru,
+        'form_data':form_data,
         }
     return render(request, 'apps/pendataan.html', context)
+
+
+def pendataan_create(request):
+    form_spptlama = SPPTLamaForm()
+    form_spptbaru = SPPTBaruForm()
+    form_data = PendataanAutoForm()
+    context = {
+        'form_spptlama':form_spptlama,
+        'form_spptbaru':form_spptbaru,
+        'form_data':form_data,
+        }
+    html_form = render_to_string('apps/create_pendataan.html',
+        context,
+        request=request,
+    )
+    return JsonResponse({'html_form': html_form})
