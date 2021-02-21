@@ -183,6 +183,7 @@ class PendataanAutoForm(forms.ModelForm):
                 'append': 'fa fa-calendar',
                 'icon_toggle': True,
                 'class':'form-control',
+                'id':'tanggal_pendaftaran',
                 'readonly':'',
                 }
             ),
@@ -199,18 +200,21 @@ class PendataanAutoForm(forms.ModelForm):
                 attrs={
                     'class':'form-control',
                     'readonly':'',
+                    'id':'nama',
                 }
             ),
             'desa':forms.TextInput(
                 attrs={
                     'class':'form-control',
                     'readonly':'',
+                    'id':'desa',
                 }
             ),
             'kecamatan':forms.TextInput(
                 attrs={
                     'class':'form-control',
                     'readonly':'',
+                    'id':'kecamatan',
                 }
             ),
 
@@ -218,6 +222,7 @@ class PendataanAutoForm(forms.ModelForm):
                 attrs={
                     'class':'form-control',
                     'readonly':'',
+                    'id':'mutasi',
                 }
             ),
 
@@ -225,6 +230,7 @@ class PendataanAutoForm(forms.ModelForm):
                 attrs={
                     'class':'form-control',
                     'readonly':'',
+                    'id':'jumlah',
                 }
             ),
 
@@ -232,6 +238,7 @@ class PendataanAutoForm(forms.ModelForm):
                 attrs={
                     'class':'form-control',
                     'readonly':'',
+                    'id':'keterangan',
                 }
             ),
 
@@ -241,6 +248,7 @@ class PendataanAutoForm(forms.ModelForm):
                     'append': 'fa fa-calendar',
                     'icon_toggle': True,
                     'readonly':'',
+                    'id':'tanggal_selesai',
                 }
             ),
         }

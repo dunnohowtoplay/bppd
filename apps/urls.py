@@ -15,5 +15,6 @@ urlpatterns = [
     #pendataan
     path('pendataan/', views.pendataan_view, name='pendataan'),
     path('pendataan/create', views.pendataan_create, name='pendataan_create'),
+    path('pendataan/autofill', views.autofill_pendataan, name='autofill_pendataan'),
     
 ]

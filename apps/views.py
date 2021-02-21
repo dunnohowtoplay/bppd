@@ -135,8 +135,21 @@ def pendataan_create(request):
         'form_spptbaru':form_spptbaru,
         'form_data':form_data,
         }
-    html_form = render_to_string('apps/create_pendataan.html',
-        context,
-        request=request,
-    )
-    return JsonResponse({'html_form': html_form})
+    return render(request, 'apps/create_pendataan.html', context)
+
+def autofill_pendataan(request):
+    data = dict()
+    if request.method == 'GET' and request.is_ajax():
+        data_id = request.GET.get('noPel', None)
+        no_pel = Pendaftaran.objects.get(id=data_id)
+        data['tanggal_pendaftaran'] = no_pel.tanggal_pendaftaran
+        data['no_pelayanan'] = no_pel.no_pelayanan
+        data['nama'] = no_pel.nama
+        data['desa'] = no_pel.desa.nama
+        data['kecamatan'] = no_pel.kecamatan.nama
+        data['mutasi'] = no_pel.mutasi
+        data['jumlah'] = no_pel.jumlah
+        data['keterangan'] = no_pel.keterangan
+        data['tanggal_selesai'] = no_pel.tanggal_selesai
+
+        return JsonResponse({"data_pendaftaran":data})

@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    //show form
+    /*
     $(".create-pendataan-show-form").click(function(){
         var button = $(this);
         $.ajax({
@@ -13,4 +15,6 @@ $(document).ready(function(){
             }
           });
     })
+    */  
+    //get data pendaftaran
 })
