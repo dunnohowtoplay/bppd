@@ -23,6 +23,9 @@
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <div>
           <form method="POST" data-url="{% url 'apps:pendataan_create' %}" class="create-pendataan-form">
+            {% csrf_token %}
+            {{ sl_formset.management_form }}
+            {{ sb_formset.management_form }}
             <div class="row mb-3">
               <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
               <div class="col-sm-3">
@@ -338,4 +341,31 @@
 
 {% block javascript %}
 <script src="{% static 'js/pendataan.js' %}"></script>
+<script>
+    $("#pilih-nopel").select2({dropdownParent: $(".class-nopel")});
+    $("#pilih-nopel").change(function(){
+        var noPel = $(this).val();
+        console.log(noPel)
+        $.ajax({
+            url : "{% url 'apps:autofill_pendataan' %}",
+            type : "GET",
+            data : {
+                noPel
+            },
+            dataType: 'json',
+            success : function(response){
+                console.log(response)
+                //$(".create-pendataan-form .modal-content").html(response.html_form)
+                $("#tanggal_pendaftaran").val(response.data_pendaftaran.tanggal_pendaftaran)
+                $("#nama").val(response.data_pendaftaran.nama)
+                $("#desa").val(response.data_pendaftaran.desa)
+                $("#kecamatan").val(response.data_pendaftaran.kecamatan)
+                $("#mutasi").val(response.data_pendaftaran.mutasi)
+                $("#jumlah").val(response.data_pendaftaran.jumlah)
+                $("#keterangan").val(response.data_pendaftaran.keterangan)
+                $("#tanggal_selesai").val(response.data_pendaftaran.tanggal_selesai)
+            }
+        })
+    })
+  </script>
 {% endblock javascript %}

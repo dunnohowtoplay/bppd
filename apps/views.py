@@ -7,6 +7,7 @@ from django.views.generic import View
 from django.template.loader import render_to_string
 from .filters import NoPendaftaranFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.forms import inlineformset_factory
 
 
 class DesaAutocomplete(autocomplete.Select2QuerySetView):
@@ -127,10 +128,18 @@ def pendataan_view(request):
 
 
 def pendataan_create(request):
+    sppt_lama_formset = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm, max_num=2)
+    sppt_baru_formset = inlineformset_factory(SPPTLama, SPPTBaru, form=SPPTBaruForm, max_num=2)
+    #no_pel = Pendaftaran.objects.get(no_pelayanan=no_p)
+    #no_slama = SPPTLama.objects.get(no_sppt_lama=no_sl)
+    sl_formset = sppt_lama_formset(prefix='spptlama')
+    sb_formset = sppt_baru_formset(prefix='spptbaru')
     form_spptlama = SPPTLamaForm()
     form_spptbaru = SPPTBaruForm()
     form_data = PendataanAutoForm()
     context = {
+        'sl_formset':sl_formset,
+        'sb_formset':sb_formset,
         'form_spptlama':form_spptlama,
         'form_spptbaru':form_spptbaru,
         'form_data':form_data,
