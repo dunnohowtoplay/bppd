@@ -150,15 +150,42 @@ def autofill_pendataan(request):
     data = dict()
     if request.method == 'GET' and request.is_ajax():
         data_id = request.GET.get('noPel', None)
-        no_pel = Pendaftaran.objects.get(id=data_id)
-        data['tanggal_pendaftaran'] = no_pel.tanggal_pendaftaran
-        data['no_pelayanan'] = no_pel.no_pelayanan
-        data['nama'] = no_pel.nama
-        data['desa'] = no_pel.desa.nama
-        data['kecamatan'] = no_pel.kecamatan.nama
-        data['mutasi'] = no_pel.mutasi
-        data['jumlah'] = no_pel.jumlah
-        data['keterangan'] = no_pel.keterangan
-        data['tanggal_selesai'] = no_pel.tanggal_selesai
+        if data_id == '':
+            pass
+        else:
+            no_pel = Pendaftaran.objects.get(id=data_id)
+            data['tanggal_pendaftaran'] = no_pel.tanggal_pendaftaran
+            data['no_pelayanan'] = no_pel.no_pelayanan
+            data['nama'] = no_pel.nama
+            data['desa'] = no_pel.desa.nama
+            data['kecamatan'] = no_pel.kecamatan.nama
+            data['mutasi'] = no_pel.mutasi
+            data['jumlah'] = no_pel.jumlah
+            data['keterangan'] = no_pel.keterangan
+            data['tanggal_selesai'] = no_pel.tanggal_selesai
 
         return JsonResponse({"data_pendaftaran":data})
+
+def edit_sppt(request, id):
+    """Edit sppt_baru and their sppt_lama on a given no_pelayanan."""
+    Sppt_Lama_Formset = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm ,formset=BaseSpptFormset, extra=1)
+    noPel = get_object_or_404(Pendaftaran, id=id)
+
+    if request.method == "POST":
+        formset = Sppt_Lama_Formset(request.POST, instance=noPel)
+
+        if formset.is_valid():
+            rooms = formset.save_all()
+
+            return redirect("apps/pendataan.html")
+
+    else:
+        formset = Sppt_Lama_Formset(instance=noPel)
+
+    context = {
+        'pendaftaran':noPel,
+        'formset':formset
+    }
+
+    return render(request, 'apps/coba_formset.html', context)
+

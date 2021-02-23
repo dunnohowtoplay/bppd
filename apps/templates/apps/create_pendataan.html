@@ -75,6 +75,10 @@
               </div>
             </div>
             <hr>
+            <div id="sppt_form">
+            <!--
+              {% include "apps/coba_formset.html" %}
+            <div id="sppt_form">
             {{ sl_formset.management_form }}
               {% for sl_form in sl_formset %}
                 {% if forloop.first %} 
@@ -322,10 +326,12 @@
                   </div>
                 {% endif %}
               {% endfor %}
-            <div class="modal-footer">
-              <button type="reset" class="btn btn-secondary">Clear</button>
-              <button type="button" class="btn btn-primary">Tambah</button>
+              <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary">Clear</button>
+                <button type="button" class="btn btn-primary">Tambah</button>
+              </div>
             </div>
+            -->
           </form>
         </div>
       </div>
@@ -386,14 +392,6 @@
         </div>
       </div>
     </div>
-    <!-- Modal Tambah-->
-    <div class="modal fade" id="crud-modal" data-bs-backdrop="static" data-bs-keyboard="false"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl ">
-        <div class="modal-content">
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 <!-- End of Pendaftaran-->
@@ -402,10 +400,27 @@
 {% block javascript %}
 <script src="{% static 'js/pendataan.js' %}"></script>
 <script>
+    $("#sppt_form").hide()
+    $("#pilih-nopel").change(function(){
+      var x = $(this).val()
+      $.ajax({
+            url : "{% url 'apps:createformset' id=nopel %}".replace('nopel', x),
+            type : "POST",
+            dataType: 'json',
+            success : function(){
+
+            }
+        })
+    })
     $("#pilih-nopel").select2({dropdownParent: $(".class-nopel")});
     $("#pilih-nopel").change(function(){
         var noPel = $(this).val();
         console.log(noPel)
+        if (noPel == null){
+          $("#sppt_form").hide()
+        }else{
+          $("#sppt_form").show()
+        }
         $.ajax({
             url : "{% url 'apps:autofill_pendataan' %}",
             type : "GET",
@@ -414,8 +429,6 @@
             },
             dataType: 'json',
             success : function(response){
-                console.log(response)
-                //$(".create-pendataan-form .modal-content").html(response.html_form)
                 $("#tanggal_pendaftaran").val(response.data_pendaftaran.tanggal_pendaftaran)
                 $("#nama").val(response.data_pendaftaran.nama)
                 $("#desa").val(response.data_pendaftaran.desa)
