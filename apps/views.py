@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from .filters import NoPendaftaranFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.forms import inlineformset_factory
+from django.views.generic import UpdateView
 
 
 class DesaAutocomplete(autocomplete.Select2QuerySetView):
@@ -110,41 +111,29 @@ def daftar_delete(request):
 
 #Pendataan Function
 def pendataan_view(request):
-    data_daftars = Pendaftaran.objects.all()
-    sppt_lamas = SPPTLama.objects.all().order_by('no_pelayanan')
-    sppt_barus = SPPTBaru.objects.all().order_by('sppt_lama__no_pelayanan')
-    form_spptlama = SPPTLamaForm()
-    form_spptbaru = SPPTBaruForm()
-    form_data = PendataanAutoForm()
+    data_daftars = Pendaftaran.objects.all().order_by('no_pelayanan')
+    sppt_lamas = SPPTLama.objects.all()
+    sppt_barus = SPPTBaru.objects.all()
+    filtered = NoPendaftaranFilter(request.GET, queryset=data_daftars)
+    f = NoPendaftaranFilter(request.GET, queryset=data_daftars).qs
+    paginator = Paginator(f, 10)
+    page = request.GET.get('page')
+    try:
+        pages = paginator.page(page)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(paginator.num_pages)
+    
     context = {
         'data_daftars':data_daftars,
         'sppt_lamas':sppt_lamas,
         'sppt_barus':sppt_barus,
-        'form_spptlama':form_spptlama,
-        'form_spptbaru':form_spptbaru,
-        'form_data':form_data,
+        'filter' : f,
+        'filtered':filtered,
+        'pages' : pages,
         }
     return render(request, 'apps/pendataan.html', context)
-
-
-def pendataan_create(request):
-    sppt_lama_formset = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm, max_num=2)
-    sppt_baru_formset = inlineformset_factory(SPPTLama, SPPTBaru, form=SPPTBaruForm, max_num=2)
-    #no_pel = Pendaftaran.objects.get(no_pelayanan=no_p)
-    #no_slama = SPPTLama.objects.get(no_sppt_lama=no_sl)
-    sl_formset = sppt_lama_formset(prefix='spptlama')
-    sb_formset = sppt_baru_formset(prefix='spptbaru')
-    form_spptlama = SPPTLamaForm()
-    form_spptbaru = SPPTBaruForm()
-    form_data = PendataanAutoForm()
-    context = {
-        'sl_formset':sl_formset,
-        'sb_formset':sb_formset,
-        'form_spptlama':form_spptlama,
-        'form_spptbaru':form_spptbaru,
-        'form_data':form_data,
-        }
-    return render(request, 'apps/create_pendataan.html', context)
 
 def autofill_pendataan(request):
     data = dict()
@@ -166,26 +155,47 @@ def autofill_pendataan(request):
 
         return JsonResponse({"data_pendaftaran":data})
 
-def edit_sppt(request, id):
-    """Edit sppt_baru and their sppt_lama on a given no_pelayanan."""
-    Sppt_Lama_Formset = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm ,formset=BaseSpptFormset, extra=1)
-    noPel = get_object_or_404(Pendaftaran, id=id)
-
+def manage_sppt_lama(request, no_pelayanan):
+    noPel = Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
+    SpptLamaInlineFormSet = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm, extra=0)
+    formset = SpptLamaInlineFormSet(instance=noPel)
     if request.method == "POST":
-        formset = Sppt_Lama_Formset(request.POST, instance=noPel)
-
+        formset = SpptLamaInlineFormSet(request.POST, instance=noPel)
         if formset.is_valid():
-            rooms = formset.save_all()
-
-            return redirect("apps/pendataan.html")
-
+            formset.save()
+            print('success')
+            # Do something. Should generally end with a redirect. For example:
+            return redirect('/pendataan')
+        else:
+            print('ERROR', formset.errors)
     else:
-        formset = Sppt_Lama_Formset(instance=noPel)
+        formset = SpptLamaInlineFormSet(instance=noPel)
 
     context = {
-        'pendaftaran':noPel,
-        'formset':formset
+        'formset': formset,
+        'data': noPel,
     }
+    return render(request, 'apps/create_sppt_lama.html', context)
 
-    return render(request, 'apps/coba_formset.html', context)
+def manage_sppt_baru(request, id):
+    nospptlama = SPPTLama.objects.get(id=id)
+    SpptBaruInlineFormSet = inlineformset_factory(SPPTLama, SPPTBaru, form=SPPTBaruForm, extra=0)
+    formset = SpptBaruInlineFormSet(instance=nospptlama)
+    if request.method == "POST":
+        formset = SpptBaruInlineFormSet(request.POST, instance=nospptlama)
+        if formset.is_valid():
+            formset.save()
+            print('success')
+            # Do something. Should generally end with a redirect. For example:
+            return redirect('/pendataan')
+        else:
+            print('ERROR', formset.errors)
+    else:
+        formset = SpptBaruInlineFormSet(instance=nospptlama)
+
+    context = {
+        'formset': formset,
+        'spptlama':nospptlama,
+    }
+    return render(request, 'apps/create_sppt_baru.html', context)
 

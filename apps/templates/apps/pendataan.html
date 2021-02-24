@@ -2,367 +2,115 @@
 {% load static %}
 
 {% block nav %}
-<a class="nav-link" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
-    aria-controls="nav-home" aria-selected="false">Home</a>
-<a class="nav-link" id="nav-profile-tab"  href="{% url 'apps:pendaftaran' %}" role="tab"
-    aria-controls="nav-profile" aria-selected="false">Pendaftaran</a>
-<a class="nav-link active" id="nav-contact-tab"  href="{% url 'apps:pendataan' %}" role="tab"
-    aria-controls="nav-contact" aria-selected="true">Pendataan</a>
+<a class="nav-link" id="nav-home-tab" href="{% url 'apps:home' %}" role="tab" aria-controls="nav-home"
+  aria-selected="false">Home</a>
+<a class="nav-link" id="nav-profile-tab" href="{% url 'apps:pendaftaran' %}" role="tab" aria-controls="nav-profile"
+  aria-selected="false">Pendaftaran</a>
+<a class="nav-link active" id="nav-contact-tab" href="{% url 'apps:pendataan' %}" role="tab" aria-controls="nav-contact"
+  aria-selected="true">Pendataan</a>
 {% endblock nav %}
 
 {% block content %}
 <!-- Pendataan -->
 <div class="tab-pane fade show active" id="nav-data" role="tabpanel" aria-labelledby="nav-contact-tab">
-    <div class="container-fluid">
-        <h4 class="text-muted" style="padding-top: 10px;">Pendataan- Wajib Pajak</h4>
-        <div>
-          <!-- Button trigger modal -->
-          <a class="btn btn-outline-primary btn-sm" href="{% url 'apps:pendataan_create' %}">
-            Tambah
+  <div class="container-fluid">
+    <h4 class="text-muted" style="padding-top: 10px;">Pendataan- Wajib Pajak</h4>
+    <div>
+      <div class="btn btn-sm">
+        <form class="d-flex" method="GET">
+          {{ filtered.form }}
+          <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+    <hr>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <table class="table table-striped pendataan-table">
+          <thead>
+            <tr>
+              <th scope="col">No_pelayanan</th>
+              <th scope="col">Nama WP</th>
+              <th scope="col">SPPT Lama</th>
+              <th scope="col">Nama Wajib Pajak Lama</th>
+              <th scope="col">Tarif PBB baru</th>
+              <th scope="col">SPPT Baru</th>
+              <th scope="col">Nama Wajib Pajak Baru</th>
+              <th scope="col">Tarif PBB Baru</th>
+              <th scope="col">Ket.</th>
+              <th scope="col">Transaksi</th>
+              <th scope="col">Luas Tanah</th>
+              <th scope="col">Luas Bangunan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% csrf_token %}
+            {% include "apps/pendataan_list.html" %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <hr>
+    <!--Pagination-->
+    <nav aria-label="Page navigation example">
+
+      {% if pages.has_other_pages %}
+      <ul class="pagination justify-content-end">
+        {% if pages.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?={{ pages.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
           </a>
-          <button type="button" class="btn btn-outline-primary btn-sm">Edit</button>
-          <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
-          <div class="btn-group">
-            <button type="button" class="disabled btn btn-sm btn-outline-primary">Export</button>
-            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-              <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuReference">
-              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendataan">CSV</a></li>
-              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendataan">Excel</a></li>
-              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendataan">PDF</a></li>
-            </ul>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&laquo;</span>
+        </li>
+        {% endif %}
+        {% for i in pages.paginator.page_range %}
+        {% if pages.number == i %}
+        <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if pages.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?={{ pages.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <span class="page-link" aria-hidden="true">&raquo;</span>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </nav>
+    <!-- Modal Export Pendataan-->
+    <div class="modal fade" id="modalexportPendataan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Export to ...</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="btn btn-sm">
-            <form class="d-flex">
-              <input class="form-control me-2 rounded" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
-            </form>
+          <div class="modal-body">
+            Tekan tombol download untuk export file
           </div>
-        </div>
-        <hr>
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <table class="table table-striped pendataan-table">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">No_pelayanan</th>
-                        <th scope="col">Nama WP</th>
-                        <th scope="col">SPPT Lama</th>
-                        <th scope="col">Nama Wajib Pajak Lama</th>
-                        <th scope="col">Tarif PBB baru</th>
-                        <th scope="col">SPPT Baru</th>
-                        <th scope="col">Nama Wajib Pajak Baru</th>
-                        <th scope="col">Tarif PBB Baru</th>
-                        <th scope="col">Ket.</th>
-                        <th scope="col">Transaksi</th>
-                        <th scope="col">Luas Tanah</th>
-                        <th scope="col">Luas Bangunan</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% csrf_token %}
-                      {% include "apps/pendataan_list.html" %}
-                    </tbody>
-                  </table>
-            </div>
-        </div>
-        <hr>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-end">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <!-- Modal Export Pendataan-->
-        <div class="modal fade" id="modalexportPendataan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Export to ...</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                Tekan tombol download untuk export file
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                <a href="#" type="button" class="btn btn-primary">Download</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal Tambah-->
-        <div class="modal fade" id="crud-modal-pendataan" data-bs-backdrop="static" data-bs-keyboard="false"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl ">
-          <div class="modal-content">
-            <!-- Modal Tambah-->
-            <!--
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Tambah Pendataan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
-                      <div class="col-sm-3">
-                          {{ form_data.tanggal_pendaftaran}}
-                      </div>
-                  </div>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">No. Pelayanan</label>
-                      <div class="col-sm-3 class-nopel">
-                          {{ form_data.no_pelayanan}}
-                      </div>
-                  </div>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Nama WP</label>
-                      <div class="col-sm-3">
-                          {{ form_data.nama}}
-                      </div>
-                  </div>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Kecamatan</label>
-                      <div class="col-sm-3">
-                          {{ form_data.kecamatan}}
-                      </div>
-                      <label class="col-sm-2 col-form-label">Desa</label>
-                      <div class="col-sm-3">
-                          {{ form_data.desa}}
-                      </div>
-                  </div>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Mutasi</label>
-                      <div class="col-sm-3">
-                          {{ form_data.mutasi}}
-                      </div>
-                      <label class="col-sm-2 col-form-label">Jumlah</label>
-                      <div class="col-sm-1">
-                          {{ form_data.jumlah}}
-                      </div>
-                  </div>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Keterangan</label>
-                      <div class="col-sm-3">
-                          {{ form_data.keterangan}}
-                      </div>
-                  </div>
-                  <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Tanggal Penyelesaian</label>
-                      <div class="col-sm-3">
-                          {{ form_data.tanggal_selesai}}
-                      </div>
-                  </div>
-                  <hr>
-                  <div class="row mb-3">
-                    <div class="col-6">
-                      <div class="row mb-3">
-                          <label class="col-sm-4 col-form-label">SPPT Lama</label>
-                          <div class="col-sm-6">
-                              {{form_spptlama.no_sppt_lama}}
-                          </div>
-                      </div>
-                      <div class="row mb-3">
-                          <label class="col-sm-4 col-form-label">Nama Wajib Pajak Lama</label>
-                          <div class="col-sm-6">
-                              {{form_spptlama.nama_wp_lama}}
-                          </div>
-                      </div>
-                      <div class="row mb-3">
-                          <label class="col-sm-4 col-form-label">Tarif Pajak Lama</label>
-                          <div class="col-sm-6">
-                              {{form_spptlama.tarif_lama}}
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">SPPT Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.no_sppt_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Nama Wajib Pajak Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.nama_wp_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Tarif Pajak Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.tarif_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                      <label class="col-sm-4 col-form-label">Keterangan</label>
-                      <div class="col-sm-6">
-                          {{form_spptbaru.keterangan}}
-                      </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Transaksi</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.transaksi}}  
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Luas Tanah</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.luas_tanah}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Luas Bangunan</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.luas_bangunan}}
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                  </div>
-                  <div class="row mb-3">
-                    <div class="col-6">
-                    </div>
-                    <div class="col-6">
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">SPPT Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.no_sppt_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Nama Wajib Pajak Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.nama_wp_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Tarif Pajak Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.tarif_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                      <label class="col-sm-4 col-form-label">Keterangan</label>
-                      <div class="col-sm-6">
-                          {{form_spptbaru.keterangan}}
-                      </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Transaksi</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.transaksi}}  
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Luas Tanah</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.luas_tanah}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Luas Bangunan</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.luas_bangunan}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row mb-3">
-                    <div class="col-6">
-                      <div class="row mb-3">
-                          <label class="col-sm-4 col-form-label">SPPT Lama</label>
-                          <div class="col-sm-6">
-                              {{form_spptlama.no_sppt_lama}}
-                          </div>
-                      </div>
-                      <div class="row mb-3">
-                          <label class="col-sm-4 col-form-label">Nama Wajib Pajak Lama</label>
-                          <div class="col-sm-6">
-                              {{form_spptlama.nama_wp_lama}}
-                          </div>
-                      </div>
-                      <div class="row mb-3">
-                          <label class="col-sm-4 col-form-label">Tarif Pajak Lama</label>
-                          <div class="col-sm-6">
-                              {{form_spptlama.tarif_lama}}
-                          </div>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">SPPT Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.no_sppt_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Nama Wajib Pajak Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.nama_wp_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Tarif Pajak Baru</label>
-                        <div class="col-sm-6">
-                            {{form_spptbaru.tarif_baru}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                      <label class="col-sm-4 col-form-label">Keterangan</label>
-                      <div class="col-sm-6">
-                          {{form_spptbaru.keterangan}}
-                      </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Transaksi</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.transaksi}}  
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Luas Tanah</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.luas_tanah}}
-                        </div>
-                      </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Luas Bangunan</label>
-                        <div class="col-sm-6">
-                          {{form_spptbaru.luas_bangunan}}
-                        </div>
-                      </div>
-                      <hr>
-                    </div>
-                  </div>   
-                  <div class="modal-footer">
-                      <button type="reset" class="btn btn-secondary">Clear</button>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                      <button type="button" class="btn btn-primary">Tambah</button>
-                  </div>
-              </form>
-            </div>
-            -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+            <a href="#" type="button" class="btn btn-primary">Download</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+</div>
+</div>
 </div>
 <!-- End of Pendataan -->
 {% endblock content %}

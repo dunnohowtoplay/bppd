@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    'jquery',
+    'djangoformsetjs',
     "bootstrap5",
     'bootstrap4',
     'crispy_forms',

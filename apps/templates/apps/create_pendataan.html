@@ -13,17 +13,14 @@
 <!-- Pendaftaran -->
 <div class="tab-pane fade show active" id="nav-daftar" role="tabpanel" aria-labelledby="nav-profile-tab">
   <div class="container-fluid">
-    <h4 class="text-muted" style="padding-top: 10px;">Pendaftaran - Wajib Pajak</h4>
+    <h4 class="text-muted" style="padding-top: 10px;">Pendataan - Wajib Pajak</h4>
     <div>
-      <!-- Button trigger modal -->
       <a class="btn btn-outline-primary btn-sm show-form"
-        href="{% url 'apps:pendataan' %}">Back</a>
+        href="{% url 'apps:pilih_nopel' %}">Back</a>
     <hr>
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <div>
-          <form method="POST" data-url="{% url 'apps:pendataan_create' %}" class="create-pendataan-form">
-            {% csrf_token %}
             <div class="row mb-3">
               <label class="col-sm-2 col-form-label">Tanggal Pendaftaran</label>
               <div class="col-sm-3">
@@ -75,6 +72,7 @@
               </div>
             </div>
             <hr>
+            <form method="POST" data-url="{% url 'apps:pendataan_create' %}" class="create-pendataan-form"></form>
             <div id="sppt_form">
             <!--
               {% include "apps/coba_formset.html" %}

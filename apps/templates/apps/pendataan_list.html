@@ -1,17 +1,16 @@
 {% load humanize %}
 
-{% for data in data_daftars %}
+{% for data in pages %}
+    <tr>
+        <td><a href="{% url 'apps:createspptlama' no_pelayanan=data.no_pelayanan %}" class="text-decoration-none text-dark">{{data.no_pelayanan}}</a></td>
+        <td>{{data.nama}}</td>
     {% for nopel in sppt_lamas %}
         {% if nopel.no_pelayanan.no_pelayanan == data.no_pelayanan %}
             {% ifchanged data.no_pelayanan %}
-            <tr id="{{data.no_sppt_lama}}">
-                <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.no_sppt_lama}}" aria-label="..."></td>
-                <td>{{nopel.no_pelayanan.no_pelayanan}}</td>
-                <td>{{nopel.no_pelayanan.nama}}</td>
                 {% if nopel.no_sppt_lama == None %}
-                    <td></td>
+                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">___</a></td>
                 {% else %}
-                    <td>{{nopel.no_sppt_lama}}</td>
+                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">{{nopel.no_sppt_lama}}</a></td>
                 {% endif %}
                 <td>{{nopel.nama_wp_lama}}</td>
                 {% if nopel.tarif_lama == None %}
@@ -23,11 +22,10 @@
             <tr>
                 <td></td>
                 <td></td>
-                <td></td>
                 {% if nopel.no_sppt_lama == None %}
-                    <td></td>
+                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">___</a></td>
                 {% else %}
-                    <td>{{nopel.no_sppt_lama}}</td>
+                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">{{nopel.no_sppt_lama}}</a></td>
                 {% endif %}
                 <td>{{nopel.nama_wp_lama}}</td>
                 {% if nopel.tarif_lama == None %}
@@ -37,8 +35,8 @@
                 {% endif %}
             {% endifchanged %}
                 {% for x in sppt_barus %}
-                    {% if x.sppt_lama.no_sppt_lama == nopel.no_sppt_lama %}
-                        {% ifchanged x.sppt_lama.no_sppt_lama %}
+                    {% if x.sppt_lama.id == nopel.id %}
+                        {% ifchanged x.sppt_lama.id %}
                             {% if x.no_sppt_baru == None %}
                                 <td></td>
                             {% else %}
@@ -64,7 +62,6 @@
                             {% endif %}
                         {% else %}
                             <tr>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -98,9 +95,6 @@
                     {% endif %}
                 {% endfor %}
         {% endif %}
-    {% empty %}
-    <tr>
-        <td colspan="10" class="text-center">No Data Pendaftaran</td>
-    </tr>
+    
     {% endfor %}
 {% endfor %}

@@ -36,7 +36,7 @@ class Pendaftaran(models.Model):
 
 class SPPTLama(models.Model):
     no_pelayanan = models.ForeignKey(Pendaftaran,  null=True, blank=True, on_delete=models.DO_NOTHING)
-    no_sppt_lama = models.CharField(max_length=18, unique=True, blank=True,  null=True)
+    no_sppt_lama = models.CharField(max_length=18, blank=True,  null=True)
     nama_wp_lama = models.CharField(max_length=100)
     tarif_lama = models.DecimalField(max_digits=19, decimal_places=4, blank=True)
 
@@ -52,7 +52,7 @@ class SPPTBaru(models.Model):
     ('TURUN', 'TURUN'),
     ]
     sppt_lama = models.ForeignKey(SPPTLama,  null=True, blank=True, on_delete=models.DO_NOTHING)
-    no_sppt_baru = models.CharField(max_length=18, unique=True, blank=True,  null=True)
+    no_sppt_baru = models.CharField(max_length=18, blank=True,  null=True)
     nama_wp_baru = models.CharField(max_length=100)
     tarif_baru = models.DecimalField(max_digits=19, decimal_places=4, blank=True)
     keterangan = models.CharField(max_length=20, choices=KET_TRANSAKSI, blank=True)
