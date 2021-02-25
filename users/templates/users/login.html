@@ -10,7 +10,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
-  <title>Hello, world!</title>
+  <title>LOGIN</title>
 </head>
 
 <body>
@@ -22,25 +22,28 @@
         BADAN PENGELOLAAN PENDAPATAN DAERAH
       </div>
       <div class="card-body">
-        <form>
+        <form method="POST">
+          {% csrf_token %}
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-              placeholder="youremail@example.com">
-            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="Enter Your Username">
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Your Password">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Enter Your Password">
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary">Login</button>
           </div>
         </form>
+          {% for message in messages %}
+            <hr>
+            <p id="messages" class="alert alert-secondary text-center" role="alert">{{message}}</p>
+          {% endfor %}
       </div>
       <div class="card-footer d-flex justify-content-between">
-        <a href="#" class="text-decoration-none">Forgot Password?</a>
-        <a href="#" class="text-decoration-none">Create Account</a>
+        <a href="{% url 'apps:home' %}" class="text-decoration-none">Back to home</a>
+        <a href="{% url 'register' %}" class="text-decoration-none">Create Account</a>
       </div>
     </div>
   </div>

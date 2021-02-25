@@ -1,12 +1,17 @@
 {% extends "apps/base.html" %}
 {% load static %}
 {% block nav %}
+{% if user.is_authenticated %}
 <a class="nav-link active" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
-    aria-controls="nav-home" aria-selected="true">Home</a>
+aria-controls="nav-home" aria-selected="true">Home</a>
 <a class="nav-link" id="nav-profile-tab"  href="{% url 'apps:pendaftaran' %}" role="tab"
-    aria-controls="nav-profile" aria-selected="false">Pendaftaran</a>
+aria-controls="nav-profile" aria-selected="false">Pendaftaran</a>
 <a class="nav-link" id="nav-contact-tab" href="{% url 'apps:pendataan' %}" role="tab"
-    aria-controls="nav-contact" aria-selected="false">Pendataan</a>
+aria-controls="nav-contact" aria-selected="false">Pendataan</a>
+{% else %}
+<a class="nav-link active" id="nav-home-tab"  href="{% url 'apps:home' %}" role="tab"
+aria-controls="nav-home" aria-selected="true">Home</a>
+{% endif %}
 {% endblock nav %}
 
 {% block content %}

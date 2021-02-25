@@ -37,19 +37,13 @@
                 KABUPATEN KUNINGAN
             </a>
             <div class="d-flex">
-                <div class="btn-group">
-                    <button type="button" class="disabled btn btn-sm btn-outline-primary">User_1</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-                      <span class="visually-hidden">Toggle Dropdown</span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuReference">
-                      <li><a class="dropdown-item" href="#">Log Out</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Separated link</a></li>
-                    </ul>
-                </div>
+                {% if user.is_authenticated %}
+                    <strong class="nav-item nav-link ">{{ user.username }}</strong>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -70,6 +64,12 @@
             </div>
         </div>
     </div>
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="text-center p-3">
+            © 2021 Copyright:
+            <a class="text-dark" href="https://triefauzan.herokuapp.com/">triefauzan.com</a>
+        </div>
+    </footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

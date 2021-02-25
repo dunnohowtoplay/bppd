@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
 from apps import views
+from users import views as uv
 
 urlpatterns = [
     url(
@@ -38,6 +39,9 @@ urlpatterns = [
         name='selectnopel',
     ),
     path('admin/', admin.site.urls),
+    path('register/', uv.registerPage, name="register"),
+    path('login/', uv.loginPage, name="login"),
+    path('logout/', uv.logoutPage, name="logout"),
     path('', include('apps.urls')),
 
     

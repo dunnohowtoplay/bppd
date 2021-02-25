@@ -9,6 +9,7 @@ from .filters import NoPendaftaranFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.forms import inlineformset_factory
 from django.views.generic import UpdateView
+from django.contrib.auth.decorators import login_required
 
 
 class DesaAutocomplete(autocomplete.Select2QuerySetView):
@@ -44,6 +45,7 @@ class Home(View):
         return render(request, self.template_name)
 
 #Pendaftaran function
+@login_required(login_url='login')
 def daftar_list(request):
     datas = Pendaftaran.objects.all().order_by('no_pelayanan')
     form = PendaftaranForm()
@@ -66,6 +68,7 @@ def daftar_list(request):
         }
     return render(request, 'apps/pendaftaran.html',context)
 
+@login_required(login_url='login')
 def save_all(request,form,template_name):
     data = dict()
     if request.method == 'POST':
@@ -82,6 +85,7 @@ def save_all(request,form,template_name):
     data['html_form'] = render_to_string(template_name,context,request=request)
     return JsonResponse(data)
 
+@login_required(login_url='login')
 def daftar_create(request):
     if request.method == 'POST':
         form = PendaftaranForm(request.POST)
@@ -89,7 +93,7 @@ def daftar_create(request):
         form = PendaftaranForm()
     return save_all(request,form,'apps/create_daftar.html')
 
-
+@login_required(login_url='login')
 def daftar_update(request, no_pelayanan):
     dataid= Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
     print(dataid)
@@ -99,6 +103,7 @@ def daftar_update(request, no_pelayanan):
         form = PendaftaranForm(instance=dataid)
     return save_all(request,form,'apps/update_daftar.html')
 
+@login_required(login_url='login')
 def daftar_delete(request):
     if request.method == "POST":
         data_ids = request.POST.getlist('deleteid[]')
@@ -110,6 +115,7 @@ def daftar_delete(request):
         return redirect('apps:pendaftaran')
 
 #Pendataan Function
+@login_required(login_url='login')
 def pendataan_view(request):
     data_daftars = Pendaftaran.objects.all().order_by('no_pelayanan')
     sppt_lamas = SPPTLama.objects.all()
@@ -155,6 +161,7 @@ def autofill_pendataan(request):
 
         return JsonResponse({"data_pendaftaran":data})
 
+@login_required(login_url='login')
 def manage_sppt_lama(request, no_pelayanan):
     noPel = Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
     SpptLamaInlineFormSet = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm, extra=0)
@@ -176,7 +183,8 @@ def manage_sppt_lama(request, no_pelayanan):
         'data': noPel,
     }
     return render(request, 'apps/create_sppt_lama.html', context)
-
+    
+@login_required(login_url='login')
 def manage_sppt_baru(request, id):
     nospptlama = SPPTLama.objects.get(id=id)
     SpptBaruInlineFormSet = inlineformset_factory(SPPTLama, SPPTBaru, form=SPPTBaruForm, extra=0)
