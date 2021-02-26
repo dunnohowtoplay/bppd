@@ -16,28 +16,14 @@
     <h4 class="text-muted" style="padding-top: 10px;">Pendaftaran - Wajib Pajak</h4>
     <div>
       <!-- Button trigger modal -->
+      {% if is_admin %}
       <button type="button" class="btn btn-outline-primary btn-sm show-form"
         data-url="{% url 'apps:daftar_create' %}">Tambah</button>
       <button type="button" class="btn btn-outline-primary btn-sm show-form-update"
         data-url="{% url 'apps:daftar-update' 'x' %}">Edit</button>
       <button type="submit" class="btn btn-outline-danger btn-sm daftar-show-form-delete"
         data-url="{% url 'apps:daftar-delete' %}" id="deletependaftaran">Delete</button>
-
-      <div class="btn-group">
-        <button type="button" class="disabled btn btn-sm btn-outline-primary">Export</button>
-        <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split"
-          id="dropdownMenuReference" data-bs-toggle="dropdown" aria-expanded="false" data-bs-reference="parent">
-          <span class="visually-hidden">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuReference">
-          <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendaftaran">CSV</a>
-          </li>
-          <li><a href="#" class="dropdown-item" data-bs-toggle="modal"
-              data-bs-target="#modalexportPendaftaran">Excel</a></li>
-          <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalexportPendaftaran">PDF</a>
-          </li>
-        </ul>
-      </div>
+      {% endif %}
       <div class="btn btn-sm">
         <form class="d-flex" method="GET">
           {{ filtered.form }}

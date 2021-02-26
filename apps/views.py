@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.forms import inlineformset_factory
 from django.views.generic import UpdateView
 from django.contrib.auth.decorators import login_required
+from users.decorators import admin_only
 
 
 class DesaAutocomplete(autocomplete.Select2QuerySetView):
@@ -50,6 +51,7 @@ def daftar_list(request):
     datas = Pendaftaran.objects.all().order_by('no_pelayanan')
     form = PendaftaranForm()
     filtered = NoPendaftaranFilter(request.GET, queryset=datas)
+    is_admin = request.user.groups.filter(name='admin').exists()
     f = NoPendaftaranFilter(request.GET, queryset=datas).qs
     paginator = Paginator(f, 10)
     page = request.GET.get('page')
@@ -65,10 +67,12 @@ def daftar_list(request):
         'filter' : f,
         'filtered':filtered,
         'pages' : pages,
+        'is_admin': is_admin,
         }
     return render(request, 'apps/pendaftaran.html',context)
 
 @login_required(login_url='login')
+@admin_only
 def save_all(request,form,template_name):
     data = dict()
     if request.method == 'POST':
@@ -86,6 +90,7 @@ def save_all(request,form,template_name):
     return JsonResponse(data)
 
 @login_required(login_url='login')
+@admin_only
 def daftar_create(request):
     if request.method == 'POST':
         form = PendaftaranForm(request.POST)
@@ -94,6 +99,7 @@ def daftar_create(request):
     return save_all(request,form,'apps/create_daftar.html')
 
 @login_required(login_url='login')
+@admin_only
 def daftar_update(request, no_pelayanan):
     dataid= Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
     print(dataid)
@@ -104,6 +110,7 @@ def daftar_update(request, no_pelayanan):
     return save_all(request,form,'apps/update_daftar.html')
 
 @login_required(login_url='login')
+@admin_only
 def daftar_delete(request):
     if request.method == "POST":
         data_ids = request.POST.getlist('deleteid[]')
@@ -162,6 +169,7 @@ def autofill_pendataan(request):
         return JsonResponse({"data_pendaftaran":data})
 
 @login_required(login_url='login')
+@admin_only
 def manage_sppt_lama(request, no_pelayanan):
     noPel = Pendaftaran.objects.get(no_pelayanan=no_pelayanan)
     SpptLamaInlineFormSet = inlineformset_factory(Pendaftaran, SPPTLama, form=SPPTLamaForm, extra=0)
@@ -185,6 +193,7 @@ def manage_sppt_lama(request, no_pelayanan):
     return render(request, 'apps/create_sppt_lama.html', context)
     
 @login_required(login_url='login')
+@admin_only
 def manage_sppt_baru(request, id):
     nospptlama = SPPTLama.objects.get(id=id)
     SpptBaruInlineFormSet = inlineformset_factory(SPPTLama, SPPTBaru, form=SPPTBaruForm, extra=0)
