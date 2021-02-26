@@ -155,5 +155,9 @@ STATICFILES_DIRS = (
 )
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+db_from_env = dj_database_url.config()
+DATABASES[‘default’].update(db_from_env)
+
 #Heroku Settings
 django_on_heroku.settings(locals())
