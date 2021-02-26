@@ -148,6 +148,7 @@ def pendataan_view(request):
         }
     return render(request, 'apps/pendataan.html', context)
 
+'''json autofill form
 def autofill_pendataan(request):
     data = dict()
     if request.method == 'GET' and request.is_ajax():
@@ -167,6 +168,7 @@ def autofill_pendataan(request):
             data['tanggal_selesai'] = no_pel.tanggal_selesai
 
         return JsonResponse({"data_pendaftaran":data})
+'''
 
 @login_required(login_url='login')
 @admin_only
