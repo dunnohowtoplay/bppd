@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'bppd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bppd_db',
         'USER': 'postgres',
         'PASSWORD': os.environ['DB_PASSWORD'],
