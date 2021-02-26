@@ -40,7 +40,7 @@ ALLOWED_HOSTS = ['127.0.0.1','triefauzan-bppd.herokuapp.com']
 INSTALLED_APPS = [
     'dal',
     'dal_select2',
-    'apps',
+    'apps.apps.AppsConfig',
     'users',
     
     'django.contrib.admin',
