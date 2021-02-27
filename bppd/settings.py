@@ -153,7 +153,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 
 
 db_from_env = dj_database_url.config(conn_max_age=0, ssl_require=True)
