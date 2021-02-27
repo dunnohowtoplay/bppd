@@ -32,7 +32,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','triefauzan-bppd.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','triefauzan-bppd-project.herokuapp.com']
 
 
 # Application definition
@@ -156,7 +156,7 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-db_from_env = dj_database_url.config()
+db_from_env = dj_database_url.config(conn_max_age=0, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
 #Heroku Settings
