@@ -1,14 +1,19 @@
 {% for data in pages %}
 <tr id="{{data.no_pelayanan}}">
-    <td><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.no_pelayanan}}" aria-label="..."></td>
-    <td>{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
-    <td>{{data.no_pelayanan}}</td>
-    <td>{{data.nama}}</td>
-    <td>{{data.desa}} - {{data.kecamatan}}</td>
-    <td>{{data.mutasi}}</td>
-    <td>{{data.jumlah}}</td>
-    <td>{{data.keterangan}}</td>
-    <td>{{data.tanggal_selesai|date:'d-m-Y'}}</td>
+    <td class="small"><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="{{data.no_pelayanan}}" aria-label="..."></td>
+    <td class="small">{{data.tanggal_pendaftaran|date:'d-m-Y'}}</td>
+    <td class="small">{{data.no_pelayanan}}</td>
+    <td class="small">{{data.nama}}</td>
+    <td class="small">{{data.desa}} - {{data.kecamatan}}</td>
+    <td class="small">{{data.mutasi}}</td>
+    <td class="small">{{data.jumlah}}</td>
+    <td class="small">{{data.keterangan}}</td>
+    <td class="small">{{data.tanggal_selesai|date:'d-m-Y'}}</td>
+    {% if data.kontak == None %}
+        <td></td>
+    {% else %}
+        <td class="small">{{data.kontak}}</td>
+    {% endif %}
 </tr>
 {% empty %}
 <tr>

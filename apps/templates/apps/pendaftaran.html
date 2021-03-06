@@ -34,25 +34,30 @@
     <hr>
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        <table class="table table-striped" id="daftar-table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Tanggal</th>
-              <th scope="col">No.Pelayanan</th>
-              <th scope="col">Nama WP</th>
-              <th scope="col">Desa - Kecamatan</th>
-              <th scope="col">Mutasi</th>
-              <th scope="col">Jumlah</th>
-              <th scope="col">Ket.</th>
-              <th scope="col">Tanggal Penyelesaian</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% csrf_token %}
-            {% include "apps/daftar_list.html" %}
-          </tbody>
-        </table>
+        <div class="table-responsive-xl">  
+          <table class="table table-striped" id="daftar-table">
+            <thead>
+              <tr>
+                <th class="small" scope="col">#</th>
+                <th class="small" scope="col">Tanggal</th>
+                <th class="small" scope="col">No.Pelayanan</th>
+                <th class="small" scope="col">Nama WP</th>
+                <th class="small" scope="col">Desa - Kecamatan</th>
+                <th class="small" scope="col">Mutasi</th>
+                <th class="small" scope="col">Jumlah</th>
+                <th class="small" scope="col">Ket.</th>
+                <th class="small" scope="col">Tanggal Penyelesaian</th>
+                {% if is_admin %}
+                <th class="small" scope="col">kontak</th>
+                {% endif %}
+              </tr>
+            </thead>
+            <tbody>
+              {% csrf_token %}
+              {% include "apps/daftar_list.html" %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <hr>

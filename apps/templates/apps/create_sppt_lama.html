@@ -37,6 +37,10 @@
                 <div class="col-sm-3">
                     {{ data.nama}}
                 </div>
+                <label class="col-sm-2 col-form-label">Kontak</label>
+                <div class="col-sm-3">
+                    {{ data.kontak}}
+                </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Kecamatan</label>
@@ -106,6 +110,20 @@
                         </div>
                     </div>
                     <div class="row mb-3">
+                        {{ form.luas_tanah_lama.errors }}
+                        <label class="col-sm-2 col-form-label">Luas Tanah Lama</label>
+                        <div class="col-sm-4">
+                            {{form.luas_tanah_lama}}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        {{ form.luas_bangunan_lama.errors }}
+                        <label class="col-sm-2 col-form-label">Luas Bangunan Lama</label>
+                        <div class="col-sm-4">
+                            {{form.luas_bangunan_lama}}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
                         <div hidden>{{ form.DELETE }}</div>
                         <div class="col-sm-4">
                             <button type="button" class="btn btn-sm btn-danger"
@@ -139,6 +157,18 @@
                                 <label class="col-sm-2 col-form-label">Tarif Pajak Lama</label>
                                 <div class="col-sm-4">
                                     {{formset.empty_form.tarif_lama}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Luas Tanah Lama</label>
+                                <div class="col-sm-4">
+                                    {{formset.empty_form.luas_tanah_lama}}
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Luas Bangunan Lama</label>
+                                <div class="col-sm-4">
+                                    {{formset.empty_form.luas_bangunan_lama}}
                                 </div>
                             </div>
                             <div class="row mb-3">

@@ -29,6 +29,7 @@ class Pendaftaran(models.Model):
     jumlah = models.IntegerField()
     keterangan = models.CharField(max_length=20, choices=KET_CHOICES)
     tanggal_selesai = models.DateField()
+    kontak = models.CharField(max_length=15, blank=True,  null=True)
 
     def __str__(self):
         return f"{self.no_pelayanan} - {self.nama}"
@@ -38,6 +39,8 @@ class SPPTLama(models.Model):
     no_sppt_lama = models.CharField(max_length=18, blank=True,  null=True)
     nama_wp_lama = models.CharField(max_length=100)
     tarif_lama = models.DecimalField(max_digits=19, decimal_places=4, blank=True)
+    luas_tanah_lama = models.IntegerField(blank=True, null=True)
+    luas_bangunan_lama = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.no_pelayanan.nama} - {self.nama_wp_lama}"
@@ -45,19 +48,28 @@ class SPPTLama(models.Model):
 
 class SPPTBaru(models.Model):
     KET_TRANSAKSI = [
-    ('TETAP', 'TETAP'),
-    ('BARU', 'BARU'),
-    ('NAIK', 'NAIK'),
-    ('TURUN', 'TURUN'),
+    ('Tetap', 'Tetap'),
+    ('Baru', 'Baru'),
+    ('Naik', 'Naik'),
+    ('Turun', 'Turun'),
+    ]
+    TRANSAKSI = [
+    ('Jual Beli', 'Jual Beli'),
+    ('Hibah', 'Hibah'),
+    ('Waris', 'Waris'),
+    ('Penghapusan', 'Penghapusan'),
+    ('AJB', 'AJBB'),
+    ('Sertifikat', 'Sertifikat'),
+    ('Dll', 'Dll'),
     ]
     sppt_lama = models.ForeignKey(SPPTLama,  null=True, blank=True, on_delete=models.CASCADE)
     no_sppt_baru = models.CharField(max_length=18, blank=True,  null=True)
     nama_wp_baru = models.CharField(max_length=100)
     tarif_baru = models.DecimalField(max_digits=19, decimal_places=4, blank=True)
     keterangan = models.CharField(max_length=20, choices=KET_TRANSAKSI, blank=True)
-    transaksi = models.CharField(max_length=20, blank=True)
-    luas_tanah = models.IntegerField(blank=True, null=True)
-    luas_bangunan = models.IntegerField(blank=True, null=True)
+    transaksi = models.CharField(max_length=20, choices=TRANSAKSI, blank=True)
+    luas_tanah_baru = models.IntegerField(blank=True, null=True)
+    luas_bangunan_baru = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.sppt_lama.no_pelayanan.no_pelayanan} - {self.sppt_lama.no_pelayanan.nama} - {self.sppt_lama.nama_wp_lama} - {self.nama_wp_baru}"

@@ -26,28 +26,32 @@
     <hr>
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-        <table class="table table-striped pendataan-table">
-          <thead>
-            <tr>
-              <th scope="col">No_pelayanan</th>
-              <th scope="col">Nama WP</th>
-              <th scope="col">SPPT Lama</th>
-              <th scope="col">Nama Wajib Pajak Lama</th>
-              <th scope="col">Tarif PBB baru</th>
-              <th scope="col">SPPT Baru</th>
-              <th scope="col">Nama Wajib Pajak Baru</th>
-              <th scope="col">Tarif PBB Baru</th>
-              <th scope="col">Ket.</th>
-              <th scope="col">Transaksi</th>
-              <th scope="col">Luas Tanah</th>
-              <th scope="col">Luas Bangunan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% csrf_token %}
-            {% include "apps/pendataan_list.html" %}
-          </tbody>
-        </table>
+        <div class="table-responsive-xl">  
+          <table class="table table-sm table-striped pendataan-table">
+            <thead>
+              <tr>
+                <th class="small"  scope="col">No_pelayanan</th>
+                <th class="small"  scope="col">Nama WP</th>
+                <th class="small"  scope="col">SPPT Lama</th>
+                <th class="small"  scope="col">Nama Wajib Pajak Lama</th>
+                <th class="small"  scope="col">Luas Tanah Lama</th>
+                <th class="small"  scope="col">Luas Bangunan Lama</th>
+                <th class="small"  scope="col">Tarif PBB Lama</th>
+                <th class="small"  scope="col">SPPT Baru</th>
+                <th class="small"  scope="col">Nama Wajib Pajak Baru</th>
+                <th class="small"  scope="col">Tarif PBB Baru</th>
+                <th class="small"  scope="col">Ket.</th>
+                <th class="small"  scope="col">Transaksi</th>
+                <th class="small"  scope="col">Luas Tanah Baru</th>
+                <th class="small"  scope="col">Luas Bangunan Baru</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% csrf_token %}
+              {% include "apps/pendataan_list.html" %}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <hr>

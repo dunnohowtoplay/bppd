@@ -2,93 +2,115 @@
 
 {% for data in pages %}
     <tr>
-        <td><a href="{% url 'apps:createspptlama' no_pelayanan=data.no_pelayanan %}" class="text-decoration-none text-dark">{{data.no_pelayanan}}</a></td>
-        <td>{{data.nama}}</td>
+        <td class="small"><a href="{% url 'apps:createspptlama' no_pelayanan=data.no_pelayanan %}" class="text-decoration-none text-dark">{{data.no_pelayanan}}</a></td>
+        <td class="small">{{data.nama}}</td>
     {% for nopel in sppt_lamas %}
         {% if nopel.no_pelayanan.no_pelayanan == data.no_pelayanan %}
             {% ifchanged data.no_pelayanan %}
                 {% if nopel.no_sppt_lama == None %}
-                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">___</a></td>
+                    <td class="small"><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">___</a></td>
                 {% else %}
-                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">{{nopel.no_sppt_lama}}</a></td>
+                    <td class="small"><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">{{nopel.no_sppt_lama}}</a></td>
                 {% endif %}
-                <td>{{nopel.nama_wp_lama}}</td>
+                <td class="small">{{nopel.nama_wp_lama}}</td>
                 {% if nopel.tarif_lama == None %}
-                    <td></td>
+                    <td class="small"></td>
                 {% else %}
-                    <td>Rp. {{nopel.tarif_lama|floatformat:2|intcomma}}</td>
+                    <td class="small">Rp. {{nopel.tarif_lama|floatformat:2|intcomma}}</td>
+                {% endif %}
+                {% if nopel.luas_tanah_lama == None %}
+                    <td class="small"></td>
+                {% else %}
+                    <td class="small">{{nopel.luas_tanah_lama}}</td>
+                {% endif %}
+                {% if nopel.luas_bangunan_lama == None %}
+                    <td class="small"></td>
+                {% else %}
+                    <td class="small">{{nopel.luas_bangunan_lama}}</td>
                 {% endif %}
             {% else %}
             <tr>
-                <td></td>
-                <td></td>
+                <td class="small"></td>
+                <td class="small"></td>
                 {% if nopel.no_sppt_lama == None %}
-                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">___</a></td>
+                    <td class="small"><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">___</a></td>
                 {% else %}
-                    <td><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">{{nopel.no_sppt_lama}}</a></td>
+                    <td class="small"><a href="{% url 'apps:createspptbaru' id=nopel.id %}" class="text-decoration-none text-dark">{{nopel.no_sppt_lama}}</a></td>
                 {% endif %}
-                <td>{{nopel.nama_wp_lama}}</td>
+                <td class="small">{{nopel.nama_wp_lama}}</td>
                 {% if nopel.tarif_lama == None %}
-                    <td></td>
+                    <td class="small"></td>
                 {% else %}
-                    <td>Rp. {{nopel.tarif_lama|floatformat:2|intcomma}}</td>
+                    <td class="small">Rp. {{nopel.tarif_lama|floatformat:2|intcomma}}</td>
+                {% endif %}
+                {% if nopel.luas_tanah_lama == None %}
+                    <td class="small"></td>
+                {% else %}
+                    <td class="small">{{nopel.luas_tanah_lama}}</td>
+                {% endif %}
+                {% if nopel.luas_bangunan_lama == None %}
+                    <td class="small"></td>
+                {% else %}
+                    <td class="small">{{nopel.luas_bangunan_lama}}</td>
                 {% endif %}
             {% endifchanged %}
                 {% for x in sppt_barus %}
                     {% if x.sppt_lama.id == nopel.id %}
                         {% ifchanged x.sppt_lama.id %}
                             {% if x.no_sppt_baru == None %}
-                                <td></td>
+                                <td class="small"></td>
                             {% else %}
-                                <td>{{x.no_sppt_baru}}</td>
+                                <td class="small">{{x.no_sppt_baru}}</td>
                             {% endif %}
-                            <td>{{x.nama_wp_baru}}</td>
+                            <td class="small">{{x.nama_wp_baru}}</td>
                             {% if x.tarif_baru == None %}
-                                <td></td>
+                                <td class="small"></td>
                             {% else %}
-                                <td>Rp. {{x.tarif_baru|floatformat:2|intcomma}}</td>
+                                <td class="small">Rp. {{x.tarif_baru|floatformat:2|intcomma}}</td>
                             {% endif %}
-                            <td>{{x.keterangan}}</td>
-                            <td>{{x.transaksi}}</td>
-                            {% if x.luas_tanah == None %}
-                                <td></td>
+                            <td class="small">{{x.keterangan}}</td>
+                            <td class="small">{{x.transaksi}}</td>
+                            {% if x.luas_tanah_baru == None %}
+                                <td class="small"></td>
                             {% else %}
-                                <td>{{x.luas_tanah}}</td>
+                                <td class="small">{{x.luas_tanah_baru}}</td>
                             {% endif %}
-                            {% if x.luas_bangunan == None %}
-                                <td></td>
+                            {% if x.luas_bangunan_baru == None %}
+                                <td class="small"></td>
                             {% else %}
-                                <td>{{x.luas_bangunan}}</td>
+                                <td class="small">{{x.luas_bangunan_baru}}</td>
                             {% endif %}
                         {% else %}
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td class="small"></td>
+                                <td class="small"></td>
+                                <td class="small"></td>
+                                <td class="small"></td>
+                                <td class="small"></td>
+                                <td class="small"></td>
+                                <td class="small"></td>
                                 {% if x.no_sppt_baru == None %}
-                                <td></td>
+                                <td class="small"></td>
                                 {% else %}
-                                    <td>{{x.no_sppt_baru}}</td>
+                                    <td class="small">{{x.no_sppt_baru}}</td>
                                 {% endif %}
-                                <td>{{x.nama_wp_baru}}</td>
+                                <td class="small">{{x.nama_wp_baru}}</td>
                                 {% if x.tarif_baru == None %}
-                                    <td></td>
+                                    <td class="small"></td>
                                 {% else %}
-                                    <td>Rp. {{x.tarif_baru|floatformat:2|intcomma}}</td>
+                                    <td class="small">Rp. {{x.tarif_baru|floatformat:2|intcomma}}</td>
                                 {% endif %}
-                                <td>{{x.keterangan}}</td>
-                                <td>{{x.transaksi}}</td>
+                                <td class="small">{{x.keterangan}}</td>
+                                <td class="small">{{x.transaksi}}</td>
                                 {% if x.luas_tanah == None %}
-                                    <td></td>
+                                    <td class="small"></td>
                                 {% else %}
-                                    <td>{{x.luas_tanah}}</td>
+                                    <td class="small">{{x.luas_tanah}}</td>
                                 {% endif %}
                                 {% if x.luas_bangunan == None %}
-                                    <td></td>
+                                    <td class="small"></td>
                                 {% else %}
-                                    <td>{{x.luas_bangunan}}</td>
+                                    <td class="small">{{x.luas_bangunan}}</td>
                                 {% endif %}
                             </tr>
                         {% endifchanged %}

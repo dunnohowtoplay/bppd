@@ -30,7 +30,7 @@ class KecamatanAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(nama__icontains=self.q)
 
         return qs
-
+'''
 class NopelAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = Pendaftaran.objects.all()
@@ -39,7 +39,7 @@ class NopelAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(no_pelayanan__istartswith=self.q)
 
         return qs
-
+'''
 class Home(View):
     template_name = 'apps/home.html'
     def get(self, request, *args, **kwargs):

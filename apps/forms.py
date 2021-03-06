@@ -17,6 +17,7 @@ class PendaftaranForm(forms.ModelForm):
             'jumlah',
             'keterangan',
             'tanggal_selesai',
+            'kontak',
             )
         widgets =  {
             'tanggal_pendaftaran':DatePicker(
@@ -79,6 +80,11 @@ class PendaftaranForm(forms.ModelForm):
                 'icon_toggle': True,
                 }
             ),
+            'kontak':forms.TextInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
         }
 
 class SPPTLamaForm(forms.ModelForm):
@@ -91,6 +97,8 @@ class SPPTLamaForm(forms.ModelForm):
             'no_sppt_lama',
             'nama_wp_lama',
             'tarif_lama',
+            'luas_tanah_lama',
+            'luas_bangunan_lama',
             )
         widgets =  {
             'no_sppt_lama':forms.TextInput(
@@ -110,6 +118,18 @@ class SPPTLamaForm(forms.ModelForm):
                     'class':'form-control',
                 }
             ),
+
+            'luas_tanah_lama':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                }
+            ),
+
+            'luas_bangunan_lama':forms.NumberInput(
+                attrs={
+                    'class':'form-control',
+                }   
+            ),
         }
 
 class SPPTBaruForm(forms.ModelForm):
@@ -124,8 +144,8 @@ class SPPTBaruForm(forms.ModelForm):
             'tarif_baru',
             'keterangan',
             'transaksi',
-            'luas_tanah',
-            'luas_bangunan',
+            'luas_tanah_baru',
+            'luas_bangunan_baru',
             )
         widgets =  {
             'no_sppt_baru':forms.TextInput(
@@ -151,18 +171,18 @@ class SPPTBaruForm(forms.ModelForm):
                 }   
             ),
 
-            'transaksi':forms.TextInput(
+            'transaksi':forms.Select(
                 attrs={
                     'class':'form-control',
                 }
             ),
 
-            'luas_tanah':forms.NumberInput(
+            'luas_tanah_baru':forms.NumberInput(
                 attrs={
                     'class':'form-control',
                 }
             ),
-            'luas_bangunan':forms.NumberInput(
+            'luas_bangunan_baru':forms.NumberInput(
                 attrs={
                     'class':'form-control',
                 }   

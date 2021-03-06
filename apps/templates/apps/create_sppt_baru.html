@@ -37,6 +37,10 @@
                 <div class="col-sm-3">
                     {{ spptlama.no_pelayanan.nama}}
                 </div>
+                <label class="col-sm-2 col-form-label">Kontak</label>
+                <div class="col-sm-3">
+                    {{ spptlama.no_pelayanan.kontak}}
+                </div>
             </div>
             <div class="row mb-3">
                 <label class="col-sm-2 col-form-label">Kecamatan</label>
@@ -101,6 +105,26 @@
                     {% endif %}
                 </div>
               </div>
+              <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Luas Tanah Lama</label>
+                <div class="col-sm-6">
+                    {% if spptlama.luas_tanah_lama == None %}
+                    
+                    {% else %}
+                        {{spptlama.luas_tanah_lama}}
+                    {% endif %}
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label class="col-sm-4 col-form-label">Luas Bangunan Lama</label>
+                <div class="col-sm-6">
+                  {% if spptlama.luas_bangunan_lama == None %}
+                  
+                  {% else %}
+                      {{spptlama.luas_bangunan_lama}}
+                  {% endif %}
+              </div>
+              </div>
         </div>
         <hr>
         <form method="POST" id="formset" data-formset-prefix="{{ formset.prefix }}">
@@ -148,13 +172,13 @@
                       <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Luas Tanah</label>
                         <div class="col-sm-6">
-                          {{form.luas_tanah}}
+                          {{form.luas_tanah_baru}}
                         </div>
                       </div>
                       <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Luas Bangunan</label>
                         <div class="col-sm-6">
-                          {{form.luas_bangunan}}
+                          {{form.luas_bangunan_baru}}
                         </div>
                       </div>
                     <div class="row mb-3">
@@ -208,13 +232,13 @@
                               <div class="row mb-3">
                                 <label class="col-sm-4 col-form-label">Luas Tanah</label>
                                 <div class="col-sm-6">
-                                  {{formset.empty_form.luas_tanah}}
+                                  {{formset.empty_form.luas_tanah_baru}}
                                 </div>
                               </div>
                               <div class="row mb-3">
                                 <label class="col-sm-4 col-form-label">Luas Bangunan</label>
                                 <div class="col-sm-6">
-                                  {{formset.empty_form.luas_bangunan}}
+                                  {{formset.empty_form.luas_bangunan_baru}}
                                 </div>
                               </div>
                             <div class="row mb-3">

@@ -23,6 +23,11 @@ from apps import views
 from users import views as uv
 
 urlpatterns = [
+    #url(
+    #    'nopel-autocomplete/$',
+    #    views.NopelAutocomplete.as_view(),
+    #    name='selectnopel',
+    #),
     url(
         'desa-autocomplete/$',
         views.DesaAutocomplete.as_view(),
@@ -32,11 +37,6 @@ urlpatterns = [
         'kecamatan-autocomplete/$',
         views.KecamatanAutocomplete.as_view(),
         name='selectkecamatan',
-    ),
-    url(
-        'nopel-autocomplete/$',
-        views.NopelAutocomplete.as_view(),
-        name='selectnopel',
     ),
     path('admin/', admin.site.urls),
     path('register/', uv.registerPage, name="register"),
