@@ -102,15 +102,15 @@
                                 {% endif %}
                                 <td class="small">{{x.keterangan}}</td>
                                 <td class="small">{{x.transaksi}}</td>
-                                {% if x.luas_tanah == None %}
+                                {% if x.luas_tanah_baru == None %}
                                     <td class="small"></td>
                                 {% else %}
-                                    <td class="small">{{x.luas_tanah}}</td>
+                                    <td class="small">{{x.luas_tanah_baru}}</td>
                                 {% endif %}
-                                {% if x.luas_bangunan == None %}
+                                {% if x.luas_bangunan_baru == None %}
                                     <td class="small"></td>
                                 {% else %}
-                                    <td class="small">{{x.luas_bangunan}}</td>
+                                    <td class="small">{{x.luas_bangunan_baru}}</td>
                                 {% endif %}
                             </tr>
                         {% endifchanged %}
