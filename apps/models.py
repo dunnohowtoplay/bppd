@@ -58,7 +58,7 @@ class SPPTBaru(models.Model):
     ('Hibah', 'Hibah'),
     ('Waris', 'Waris'),
     ('Penghapusan', 'Penghapusan'),
-    ('AJB', 'AJBB'),
+    ('AJB', 'AJB'),
     ('Sertifikat', 'Sertifikat'),
     ('Dll', 'Dll'),
     ]
