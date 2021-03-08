@@ -21,7 +21,7 @@ class Pendaftaran(models.Model):
     ('SELESAI', 'SELESAI'),
     ]
     tanggal_pendaftaran = models.DateField()
-    no_pelayanan=models.CharField(max_length=11, unique=True, blank=True, null=True, default=0)
+    no_pelayanan=models.CharField(max_length=11, unique=True, blank=True, null=True, default="")
     nama = models.CharField(max_length=100)
     desa = models.ForeignKey(Desa,  null=True, blank=True, on_delete=models.DO_NOTHING)
     kecamatan = models.ForeignKey(Kecamatan, null=True, blank=True, on_delete=models.DO_NOTHING)
@@ -73,7 +73,7 @@ class SPPTBaru(models.Model):
 
     def __str__(self):
         return f"{self.sppt_lama.no_pelayanan.no_pelayanan} - {self.sppt_lama.no_pelayanan.nama} - {self.sppt_lama.nama_wp_lama} - {self.nama_wp_baru}"
-#class Pendataan(models.Model):
+
 
 
 

@@ -44,6 +44,9 @@ urlpatterns = [
     path('logout/', uv.logoutPage, name="logout"),
     path('', include('apps.urls')),
 
+    #API urls
+    path('api/', include('api.urls'))
+
     
 ]
 

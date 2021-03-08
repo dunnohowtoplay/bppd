@@ -16,7 +16,7 @@ else:
 
 def editPK(sender, instance, **kwargs):
     global thdint,edit
-    if instance.no_pelayanan != "0":
+    if instance.no_pelayanan != "":
         edit = True
     else:
         edit = False

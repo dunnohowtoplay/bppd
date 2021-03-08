@@ -30,7 +30,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','triefauzan-bppd-project.herokuapp.com']
 
@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
 
+    'rest_framework',
     'jquery',
     'djangoformsetjs',
     "bootstrap5",
@@ -126,6 +127,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -161,7 +169,7 @@ DATABASES['default'].update(db_from_env)
 
 #Heroku Settings
 django_heroku.settings(locals())
-
+'''
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -177,3 +185,4 @@ LOGGING = {
         },
     },
 }
+'''
